@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>دجاج كنتاكي غزة | المنيو الرسمي والطلب المباشر</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <meta name="description" content="منيو دجاج كنتاكي غزة الرسمي. اطلب وجباتك المفضلة وسندوتشات الزنجر والتويستر الآن واستلمها ساخنة عبر خدمة التوصيل السريع." />
     <meta name="robots" content="index, follow" />
     
@@ -1957,9 +1958,15 @@
 
                 // Alpine init method for routing setup
                 init() {
-                    // Sync tab with URL path on load
+                    // Sync tab with URL path or hash on load
                     const path = window.location.pathname.replace(/^\/|\/$/g, '');
-                    if (['menu', 'about', 'branch', 'contact', 'admin'].includes(path)) {
+                    const hash = window.location.hash;
+                    if (path === 'admin' || hash === '#admin') {
+                        this.activeTab = 'admin';
+                        if (hash === '#admin') {
+                            window.history.replaceState(null, '', '/admin');
+                        }
+                    } else if (['menu', 'about', 'branch', 'contact'].includes(path)) {
                         this.activeTab = path;
                     } else {
                         this.activeTab = 'menu';
