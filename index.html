@@ -1,0 +1,2496 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>دجاج كنتاكي غزة | المنيو الرسمي والطلب المباشر</title>
+    <meta name="description" content="منيو دجاج كنتاكي غزة الرسمي. اطلب وجباتك المفضلة وسندوتشات الزنجر والتويستر الآن واستلمها ساخنة عبر خدمة التوصيل السريع." />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons (Phosphor Icons) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#E4002B', // KFC Red
+                        primaryDark: '#B80022',
+                        secondary: '#FFFFFF',
+                        darkAccent: '#0F0F0F',
+                        lightBg: '#F9FAFB',
+                        highlight: '#FFB800', // KFC Yellow
+                        kfcGray: '#F4F4F4',
+                        gazaOlive: '#4A5D4E',
+                        adminBg: '#111625',
+                        adminBgSec: '#1A1F31',
+                        adminSuccess: '#00E676'
+                    },
+                    fontFamily: {
+                        heading: ['Cairo', 'sans-serif'],
+                        body: ['Readex Pro', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Readex Pro', sans-serif;
+            background-color: #FAFAFA;
+            color: #0F0F0F;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Cairo', sans-serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F1F1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E4002B;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B80022;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .glass-dark {
+            background: rgba(15, 15, 15, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Card 3D hover effects */
+        .pop-out-img {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .menu-card:hover .pop-out-img {
+            transform: scale(1.12) rotate(-2deg) translateY(-5px);
+        }
+        
+        .menu-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .menu-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px -10px rgba(228, 0, 43, 0.12), 0 10px 15px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Selection */
+        ::selection {
+            background-color: #E4002B;
+            color: #FFFFFF;
+        }
+
+        /* Custom Input Styling */
+        input:focus, textarea:focus, select:focus {
+            box-shadow: 0 0 0 3px rgba(228, 0, 43, 0.15);
+        }
+
+        /* 3D Flip Card Styles */
+        .flip-card-container {
+            perspective: 1200px;
+        }
+        .flip-card-inner {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .flipped-class {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Orbiting Text Path Animation */
+        @keyframes rotate-text {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+        .rotating-text-path {
+            animation: rotate-text 35s linear infinite;
+        }
+        .flip-card-container:hover ~ div .rotating-text-path {
+            animation-duration: 15s; /* Accelerate rotation on hover */
+        }
+
+        /* Responsive Orbit Radius and Card Scale Variables */
+        :root {
+            --orbit-radius: -130px;
+            --orbit-card-scale: 0.8;
+        }
+        @media (min-width: 480px) {
+            :root {
+                --orbit-radius: -155px;
+                --orbit-card-scale: 0.85;
+            }
+        }
+        @media (min-width: 768px) {
+            :root {
+                --orbit-radius: -200px;
+                --orbit-card-scale: 0.9;
+            }
+        }
+        @media (min-width: 1024px) {
+            :root {
+                --orbit-radius: -245px;
+                --orbit-card-scale: 1;
+            }
+        }
+
+        .orbiting-card {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            will-change: transform;
+            z-index: 30; /* Positioned above the central 3D card by default */
+        }
+
+        .orbiting-card-inner {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .orbiting-card-inner:hover {
+            transform: scale(1.15);
+            background: rgba(255, 255, 255, 0.25) !important;
+            border-color: rgba(255, 255, 255, 0.4) !important;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+        }
+
+        .orbiting-card:hover {
+            animation-play-state: paused !important;
+            z-index: 40 !important; /* Glow/pop on hover */
+        }
+
+        /* Web-Drift Constellation Animations for Organic Floating with subtle rotation */
+        @keyframes web-drift-1 {
+            0% {
+                transform: translate(-50%, -50%) translate(calc(var(--orbit-radius) * -0.8), calc(var(--orbit-radius) * 0.8)) scale(var(--orbit-card-scale)) rotate(0deg);
+            }
+            25% {
+                transform: translate(-50%, -50%) translate(calc(var(--orbit-radius) * -0.9), calc(var(--orbit-radius) * 0.6)) scale(calc(var(--orbit-card-scale) * 1.04)) rotate(2deg);
+            }
+            50% {
+                transform: translate(-50%, -50%) translate(calc(var(--orbit-radius) * -0.7), calc(var(--orbit-radius) * 0.5)) scale(var(--orbit-card-scale)) rotate(-1.5deg);
+            }
+            75% {
+                transform: translate(-50%, -50%) translate(calc(var(--orbit-radius) * -0.6), calc(var(--orbit-radius) * 0.9)) scale(calc(var(--orbit-card-scale) * 0.96)) rotate(1deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) translate(calc(var(--orbit-radius) * -0.8), calc(var(--orbit-radius) * 0.8)) scale(var(--orbit-card-scale)) rotate(0deg);
+            }
+        }
+
+        @keyframes web-drift-2 {
+            0% {
+                transform: translate(-50%, -50%) translate(calc(var(--orbit-radius) * 0.8), calc(var(--orbit-radius) * 0.8)) scale(var(--orbit-card-scale)) rotate(0deg);
+            }
+            30% {
+                transform: translate(-50%, -50%) translate(calc(var(--orbit-radius) * 0.6), calc(var(--orbit-radius) * 0.7)) scale(calc(var(--orbit-card-scale) * 0.95)) rotate(-1.5deg);
+            }
+            65% {
+                transform: translate(-50%, -50%) translate(calc(var(--orbit-radius) * 0.9), calc(var(--orbit-radius) * 0.5)) scale(calc(var(--orbit-card-scale) * 1.05)) rotate(2deg);
+            }
+            85% {
+                transform: translate(-50%, -50%) translate(calc(var(--orbit-radius) * 0.7), calc(var(--orbit-radius) * 0.9)) scale(var(--orbit-card-scale)) rotate(-1deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) translate(calc(var(--orbit-radius) * 0.8), calc(var(--orbit-radius) * 0.8)) scale(var(--orbit-card-scale)) rotate(0deg);
+            }
+        }
+
+        @keyframes web-drift-3 {
+            0% {
+                transform: translate(-50%, -50%) translate(calc(var(--orbit-radius) * -0.8), calc(var(--orbit-radius) * -0.8)) scale(var(--orbit-card-scale)) rotate(0deg);
+            }
+            20% {
+                transform: translate(-50%, -50%) translate(calc(var(--orbit-radius) * -0.9), calc(var(--orbit-radius) * -0.6)) scale(calc(var(--orbit-card-scale) * 0.97)) rotate(1deg);
+            }
+            45% {
+                transform: translate(-50%, -50%) translate(calc(var(--orbit-radius) * -0.7), calc(var(--orbit-radius) * -0.5)) scale(calc(var(--orbit-card-scale) * 1.03)) rotate(-2deg);
+            }
+            75% {
+                transform: translate(-50%, -50%) translate(calc(var(--orbit-radius) * -0.6), calc(var(--orbit-radius) * -0.9)) scale(var(--orbit-card-scale)) rotate(1.5deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) translate(calc(var(--orbit-radius) * -0.8), calc(var(--orbit-radius) * -0.8)) scale(var(--orbit-card-scale)) rotate(0deg);
+            }
+        }
+
+        @keyframes web-drift-4 {
+            0% {
+                transform: translate(-50%, -50%) translate(calc(var(--orbit-radius) * 0.8), calc(var(--orbit-radius) * -0.8)) scale(var(--orbit-card-scale)) rotate(0deg);
+            }
+            35% {
+                transform: translate(-50%, -50%) translate(calc(var(--orbit-radius) * 0.9), calc(var(--orbit-radius) * -0.6)) scale(calc(var(--orbit-card-scale) * 1.04)) rotate(-2deg);
+            }
+            60% {
+                transform: translate(-50%, -50%) translate(calc(var(--orbit-radius) * 0.6), calc(var(--orbit-radius) * -0.5)) scale(calc(var(--orbit-card-scale) * 0.96)) rotate(1deg);
+            }
+            80% {
+                transform: translate(-50%, -50%) translate(calc(var(--orbit-radius) * 0.5), calc(var(--orbit-radius) * -0.9)) scale(var(--orbit-card-scale)) rotate(-1.5deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) translate(calc(var(--orbit-radius) * 0.8), calc(var(--orbit-radius) * -0.8)) scale(var(--orbit-card-scale)) rotate(0deg);
+            }
+        }
+    </style>
+</head>
+
+<body x-data="menuApp()" class="antialiased relative" @scroll.window="handleScroll">
+
+    <!-- Toast Notification -->
+    <div x-show="toast.visible" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 translate-y-10 scale-95"
+         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+         x-transition:leave-end="opacity-0 translate-y-10 scale-95"
+         class="fixed bottom-24 right-4 left-4 md:left-auto md:right-8 z-50 bg-darkAccent text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 border-r-4 border-primary"
+         style="display: none;">
+        <div class="bg-primary/20 p-2 rounded-xl">
+            <i class="ph ph-shopping-cart-simple text-primary text-2xl animate-pulse"></i>
+        </div>
+        <div class="flex-grow">
+            <p class="font-heading font-bold text-base" x-text="toast.title"></p>
+            <p class="text-xs text-gray-300 font-light" x-text="toast.message"></p>
+        </div>
+        <button @click="toast.visible = false" class="text-gray-400 hover:text-white transition-colors">
+            <i class="ph ph-x text-lg"></i>
+        </button>
+    </div>
+
+    <!-- Floating Action Button (Cart) -->
+    <button x-show="activeTab !== 'admin'" @click="openCart = true" 
+            class="fixed bottom-6 left-6 z-40 bg-primary hover:bg-primaryDark text-white w-16 h-16 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-95 group focus:outline-none focus:ring-4 focus:ring-primary/30">
+        <i class="ph ph-shopping-bag text-3xl group-hover:scale-110 transition-transform"></i>
+        <!-- Badge -->
+        <span x-show="cart.length > 0" 
+              x-text="cartTotalItems" 
+              class="absolute -top-1 -right-1 bg-highlight text-darkAccent font-bold text-xs w-6 h-6 rounded-full flex items-center justify-center border-2 border-white shadow-md animate-bounce"
+              x-transition></span>
+    </button>
+
+    <!-- Navigation Header -->
+    <nav x-show="activeTab !== 'admin'" class="fixed top-0 inset-x-0 z-40 transition-all duration-300" 
+         :class="scrolled ? 'glass shadow-md py-2' : 'bg-transparent py-4'">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <!-- KFC Logo and Branch Name -->
+            <a href="#" @click.prevent="activeTab = 'menu'; window.scrollTo(0,0)" class="flex items-center gap-2.5 group">
+                <!-- Official KFC SVG Logo -->
+                <svg viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 fill-primary group-hover:scale-105 transition-transform duration-300">
+                    <path d="M21.893 8.23c-4.187.001-5.249 2.365-5.42 3.97-.194 1.802 1.053 3.57 4.127 3.57 1.294 0 2.14-.225 2.44-.32a.215.215 0 0 0 .147-.166l.173-.91a.184.184 0 0 0-.236-.21c-.336.106-.93.252-1.685.252-1.469 0-2.53-.882-2.395-2.4.13-1.47 1.121-2.59 2.485-2.59.82 0 1.183.43 1.156 1.003v.033a.184.184 0 0 0 .182.193h.557c.086 0 .16-.06.18-.143l.39-1.76a.215.215 0 0 0-.15-.255 7.21 7.21 0 0 0-1.95-.266zm-20.157.116a.2.2 0 0 0-.195.156l-.108.484a.198.198 0 0 0 .13.23l.033.01c.208.082.45.266.348.748l-.792 3.62c-.207.987-.542 1.19-.86 1.226h-.01a.2.2 0 0 0-.176.157l-.102.464a.192.192 0 0 0 .187.233h3.487c.085 0 .159-.06.177-.142l.12-.543a.184.184 0 0 0-.112-.21l-.022-.01c-.177-.07-.418-.224-.356-.51l.405-1.85c1.389 2.535 1.848 3.266 3.514 3.265H8.91a.181.181 0 0 0 .177-.142l.105-.47a.195.195 0 0 0-.186-.238c-.376-.006-.56-.093-.935-.575l-1.932-2.614 2.51-2.088c.337-.264.748-.338.976-.368l.022-.002a.185.185 0 0 0 .163-.144l.103-.464a.184.184 0 0 0-.18-.223h-3.02a.199.199 0 0 0-.193.155l-.102.46a.2.2 0 0 0 .138.235c.178.069.217.24.063.366L4.046 11.7l.44-2.014a.683.683 0 0 1 .477-.487l.025-.008a.199.199 0 0 0 .135-.147l.106-.477a.181.181 0 0 0-.177-.22zm8.88 0a.2.2 0 0 0-.194.156l-.107.483a.19.19 0 0 0 .122.221l.02.008c.204.077.487.274.364.758l-1.21 5.48a.182.182 0 0 0 .178.222h2.777c.086 0 .16-.06.179-.143l.12-.547a.174.174 0 0 0-.098-.196 1.558 1.558 0 0 1-.027-.013c-.176-.086-.438-.285-.35-.67.009-.05.27-1.24.27-1.24h2.362c.086 0 .16-.06.18-.143l.221-1a.183.183 0 0 0-.18-.224h-2.28l.427-1.94 1.592-.003c.515 0 .672.27.642.728l-.002.024a.184.184 0 0 0 .183.205h.587c.086 0 .16-.06.178-.144l.4-1.8a.184.184 0 0 0-.18-.222z"/>
+                </svg>
+                <div class="flex flex-col">
+                    <span class="font-heading font-black text-lg md:text-xl text-primary tracking-tight leading-none">كنتاكي غزة</span>
+                    <span class="text-[9px] md:text-xxs font-bold text-gray-500 tracking-wide uppercase mt-0.5 leading-none">شارع النصر</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <div class="hidden md:flex items-center gap-6">
+                <button @click="activeTab = 'menu'" 
+                        class="font-heading font-bold text-sm py-2 px-3 transition-colors border-b-2" 
+                        :class="activeTab === 'menu' ? 'border-primary text-primary' : 'border-transparent text-gray-600 hover:text-primary'">الرئيسية والمنيو</button>
+                <button @click="activeTab = 'about'" 
+                        class="font-heading font-bold text-sm py-2 px-3 transition-colors border-b-2" 
+                        :class="activeTab === 'about' ? 'border-primary text-primary' : 'border-transparent text-gray-600 hover:text-primary'">من نحن</button>
+                <button @click="activeTab = 'branch'" 
+                        class="font-heading font-bold text-sm py-2 px-3 transition-colors border-b-2" 
+                        :class="activeTab === 'branch' ? 'border-primary text-primary' : 'border-transparent text-gray-600 hover:text-primary'">موقع الفرع</button>
+                <button @click="activeTab = 'contact'" 
+                        class="font-heading font-bold text-sm py-2 px-3 transition-colors border-b-2" 
+                        :class="activeTab === 'contact' ? 'border-primary text-primary' : 'border-transparent text-gray-600 hover:text-primary'">اتصل بنا</button>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="flex items-center gap-3">
+                <button @click="openCart = true" 
+                        class="bg-kfcGray hover:bg-gray-200 text-darkAccent px-4 py-2 rounded-2xl flex items-center gap-2 text-sm font-bold transition-all focus:outline-none">
+                    <i class="ph ph-shopping-cart text-lg text-primary"></i>
+                    <span class="hidden sm:inline">السلة</span>
+                    <span x-show="cart.length > 0" x-text="cartTotalItems" class="bg-primary text-white text-xs px-2 py-0.5 rounded-full"></span>
+                </button>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden" x-data="{ openMenu: false }">
+                    <button @click="openMenu = !openMenu" class="text-darkAccent focus:outline-none p-2 rounded-lg bg-kfcGray hover:bg-gray-200">
+                        <i class="ph text-2xl" :class="openMenu ? 'ph-x' : 'ph-list'"></i>
+                    </button>
+                    <!-- Mobile Menu Dropdown -->
+                    <div x-show="openMenu" 
+                         @click.away="openMenu = false"
+                         x-transition 
+                         class="absolute top-16 left-4 right-4 bg-white shadow-2xl rounded-3xl p-6 flex flex-col gap-4 border border-gray-100 z-50">
+                        <button @click="activeTab = 'menu'; openMenu = false" class="font-heading font-bold text-right text-base text-gray-700 hover:text-primary transition-colors py-2 border-b border-gray-50">الرئيسية والمنيو</button>
+                        <button @click="activeTab = 'about'; openMenu = false" class="font-heading font-bold text-right text-base text-gray-700 hover:text-primary transition-colors py-2 border-b border-gray-50">من نحن</button>
+                        <button @click="activeTab = 'branch'; openMenu = false" class="font-heading font-bold text-right text-base text-gray-700 hover:text-primary transition-colors py-2 border-b border-gray-50">موقع الفرع</button>
+                        <button @click="activeTab = 'contact'; openMenu = false" class="font-heading font-bold text-right text-base text-gray-700 hover:text-primary transition-colors py-2">اتصل بنا</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Tab Views -->
+    
+    <!-- 1. Menu Tab (Home + Menu Items Grid) -->
+    <div x-show="activeTab === 'menu'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
+        
+        <!-- Hero Section -->
+        <header class="relative w-full min-h-[92vh] flex items-center overflow-hidden bg-darkAccent text-white pt-28 pb-16">
+            <!-- Background Elements -->
+            <div class="absolute inset-0 z-0 opacity-25">
+                <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-primary rounded-full blur-[140px] -translate-y-1/2 translate-x-1/3"></div>
+                <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-highlight rounded-full blur-[120px] translate-y-1/3 -translate-x-1/3"></div>
+            </div>
+
+            <div class="container mx-auto px-4 z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Text Content -->
+                <div class="flex flex-col gap-6 text-center lg:text-right lg:col-span-7 order-2 lg:order-1">
+                    <span class="inline-flex items-center gap-2 bg-primary/20 text-primary border border-primary/30 px-4 py-2 rounded-full font-bold text-sm w-max mx-auto lg:mx-0 backdrop-blur-md">
+                        <i class="ph ph-sparkles text-primary"></i> الوصفة السرية الأصلية الـ 11
+                    </span>
+                    <h1 class="font-heading text-4xl sm:text-5xl md:text-7xl font-black leading-tight">
+                        مشتهي <span class="text-primary block sm:inline relative">قرمشة؟<span class="absolute bottom-1 right-0 w-full h-2 bg-highlight/30 rounded-full"></span></span><br>
+                        كنتاكي غزة يناديك!
+                    </h1>
+                    <p class="text-gray-300 text-base md:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed font-light">
+                        تذوق الدجاج المقرمش اللذيذ المحضر محلياً بأعلى معايير الجودة والخلطة الأصلية. اختر وجبتك المفضلة وأرسل طلبك مباشرة للفرع عبر الواتساب لتستلمه ساخناً ومقرمشاً.
+                    </p>
+                    
+                    <!-- Short Story Badge/Box -->
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-4 mt-2 max-w-xl mx-auto lg:mx-0 text-right backdrop-blur-sm">
+                        <h4 class="font-heading font-bold text-xs text-primary flex items-center gap-1.5 mb-1.5">
+                            <i class="ph ph-sparkles text-primary animate-pulse"></i>
+                            <span>لماذا أشهى طعام هنا؟ (سر القرمشة)</span>
+                        </h4>
+                        <p class="text-xs text-gray-300 leading-relaxed font-light">
+                            لأننا في فرعنا بشارع النصر نحضّر الدجاج محلياً وطازجاً يومياً، ونطهوه بالوصفة السرية الأصلية للكولونيل ساندرز (الـ 11 عشبة وتوابل). الدجاج لدينا لا يُجمّد، بل يُتبّل ويُقلى يدوياً قطعة بقطعة ليصلكم مقرمشاً، ساخناً، وغنياً بالنكهة التي تعشقونها.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mt-4">
+                        <a href="#menu-section" class="bg-primary hover:bg-primaryDark text-white font-bold py-4 px-8 rounded-2xl shadow-lg hover:shadow-primary/40 transition-all text-center flex items-center justify-center gap-2 text-base md:text-lg focus:outline-none">
+                            <span>استكشف المنيو الرسمي</span>
+                            <i class="ph ph-arrow-down-bold"></i>
+                        </a>
+                        <button @click="activeTab = 'branch'" class="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold py-4 px-8 rounded-2xl transition-all flex items-center justify-center gap-2 text-base md:text-lg">
+                            <i class="ph ph-map-pin-bold text-primary"></i>
+                            <span>تفاصيل الفرع ومواعيد العمل</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Floating Image Panel with Interactive Mouse Parallax -->
+                <div id="hero-interactive-panel" class="relative flex justify-center items-center lg:col-span-5 order-1 lg:order-2 h-[450px] lg:h-[550px]" x-data="{ flipped: false }">
+                    <!-- Outer Glow -->
+                    <div class="absolute inset-0 bg-primary/35 rounded-full blur-3xl animate-pulse scale-75"></div>
+                    
+                    <!-- Decorative striped circular shape -->
+                    <div class="absolute w-[300px] h-[300px] md:w-[380px] md:h-[380px] border-4 border-dashed border-white/10 rounded-full animate-spin-slow"></div>
+
+                    <!-- 3D Flip Card Container -->
+                    <div id="center-card" class="relative w-64 h-64 md:w-80 md:h-80 flip-card-container z-20 select-none cursor-pointer"
+                         @mouseenter="flipped = true" 
+                         @mouseleave="flipped = false" 
+                         @click="flipped = !flipped">
+                        <div class="flip-card-inner" :class="{'flipped-class': flipped}">
+                            <!-- Front Side (Delicious Crispy Chicken) -->
+                            <div class="flip-card-front rounded-[48px] overflow-hidden border-8 border-white/10 shadow-2xl bg-white">
+                                <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=1000&auto=format&fit=crop" alt="Fried Chicken Bucket" class="w-full h-full object-cover">
+                            </div>
+                            
+                            <!-- Back Side (Colonel Sanders Logo & Short Story & CTA) -->
+                            <div class="flip-card-back rounded-[48px] overflow-hidden border-8 border-primary shadow-2xl bg-darkAccent flex flex-col items-center justify-center p-6 text-center text-white">
+                                <!-- Colonel Logo SVG -->
+                                <svg viewBox="0 0 24 24" class="w-14 h-14 fill-primary mb-3">
+                                    <path d="M21.893 8.23c-4.187.001-5.249 2.365-5.42 3.97-.194 1.802 1.053 3.57 4.127 3.57 1.294 0 2.14-.225 2.44-.32a.215.215 0 0 0 .147-.166l.173-.91a.184.184 0 0 0-.236-.21c-.336.106-.93.252-1.685.252-1.469 0-2.53-.882-2.395-2.4.13-1.47 1.121-2.59 2.485-2.59.82 0 1.183.43 1.156 1.003v.033a.184.184 0 0 0 .182.193h.557c.086 0 .16-.06.18-.143l.39-1.76a.215.215 0 0 0-.15-.255 7.21 7.21 0 0 0-1.95-.266zm-20.157.116a.2.2 0 0 0-.195.156l-.108.484a.198.198 0 0 0 .13.23l.033.01c.208.082.45.266.348.748l-.792 3.62c-.207.987-.542 1.19-.86 1.226h-.01a.2.2 0 0 0-.176.157l-.102.464a.192.192 0 0 0 .187.233h3.487c.085 0 .159-.06.177-.142l.12-.543a.184.184 0 0 0-.112-.21l-.022-.01c-.177-.07-.418-.224-.356-.51l.405-1.85c1.389 2.535 1.848 3.266 3.514 3.265H8.91a.181.181 0 0 0 .177-.142l.105-.47a.195.195 0 0 0-.186-.238c-.376-.006-.56-.093-.935-.575l-1.932-2.614 2.51-2.088c.337-.264.748-.338.976-.368l.022-.002a.185.185 0 0 0 .163-.144l.103-.464a.184.184 0 0 0-.18-.223h-3.02a.199.199 0 0 0-.193.15"/>
+                                </svg>
+                                <h4 class="font-heading font-bold text-xs text-highlight mb-1">سر الكولونيل ساندرز</h4>
+                                <p class="text-[9px] text-gray-300 leading-relaxed font-light mb-3 px-1">
+                                    وصفة الـ 11 عشبة وتوابل السرية! دجاجنا طازج ومحلي يُحضّر يومياً بشغف وقرمشة لا تقاوم.
+                                </p>
+                                <a href="#menu-section" class="bg-primary hover:bg-primaryDark text-white text-[9px] font-bold py-1.5 px-3 rounded-lg transition-all shadow-md flex items-center gap-1 focus:outline-none">
+                                    <span>اطلب السر الآن</span>
+                                    <i class="ph ph-arrow-left-bold text-[10px]"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <!-- Orbiting Text Story Path orbiting the circle (Emoji Cleaned) -->
+                    <div class="absolute w-[320px] h-[320px] md:w-[400px] md:h-[400px] z-0 pointer-events-none flex items-center justify-center">
+                        <svg viewBox="0 0 400 400" class="w-full h-full">
+                            <g class="rotating-text-path" style="transform-origin: 200px 200px;">
+                                <path id="textCirclePath" d="M 200, 200 m -165, 0 a 165,165 0 1,1 330,0 a 165,165 0 1,1 -330,0" fill="none" />
+                                <text fill="#FFFFFF" fill-opacity="0.3" class="font-heading text-[10px] md:text-[11.5px] font-black tracking-[0.22em]">
+                                    <textPath href="#textCirclePath" startOffset="0%">
+                                        ★ الخلطة السرية الأصلية للكولونيل ساندرز • 100% دجاج طازج يومياً • سر القرمشة الأصلية • 
+                                    </textPath>
+                                </text>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <!-- Constellation Wrapper for Spiderweb Lines & Floating Cards -->
+                    <div id="constellation-wrapper" class="absolute inset-0 w-full h-full pointer-events-none transition-transform duration-200 ease-out" style="z-index: 25;">
+                        <!-- Spiderweb Connections SVG -->
+                        <svg id="spiderweb-svg" class="absolute inset-0 w-full h-full pointer-events-none">
+                            <!-- Radial Web Lines (Center to Cards) -->
+                            <line id="line-c1" stroke="rgba(255, 255, 255, 0.22)" stroke-width="1.5" stroke-dasharray="3 3" />
+                            <line id="line-c2" stroke="rgba(255, 255, 255, 0.22)" stroke-width="1.5" stroke-dasharray="3 3" />
+                            <line id="line-c3" stroke="rgba(255, 255, 255, 0.22)" stroke-width="1.5" stroke-dasharray="3 3" />
+                            <line id="line-c4" stroke="rgba(255, 255, 255, 0.22)" stroke-width="1.5" stroke-dasharray="3 3" />
+                            
+                            <!-- Concentric Web Lines (Card to Card) -->
+                            <line id="line-1-2" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1" stroke-dasharray="2 4" />
+                            <line id="line-2-3" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1" stroke-dasharray="2 4" />
+                            <line id="line-3-4" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1" stroke-dasharray="2 4" />
+                            <line id="line-4-1" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1" stroke-dasharray="2 4" />
+                        </svg>
+
+                        <!-- Floating Card 1 (Top Right) -->
+                        <div id="card-1" class="orbiting-card w-44 md:w-52 pointer-events-auto" 
+                             style="animation: web-drift-1 12s ease-in-out infinite;">
+                            <div class="bg-white/10 backdrop-blur-md border border-white/15 p-4 rounded-2xl shadow-xl text-right orbiting-card-inner">
+                                <div class="flex items-center gap-1.5 mb-1 text-primary">
+                                    <i class="ph ph-leaf text-base"></i>
+                                    <h4 class="font-heading font-black text-[10px] md:text-xs">الأعشاب الـ 11 السرية</h4>
+                                </div>
+                                <p class="text-[9px] md:text-[10px] text-gray-300 leading-relaxed font-light">
+                                    سر المذاق الأسطوري! توليفة توابل الكولونيل ساندرز المبتكرة التي تميز قرمشتنا عن غيرها.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Floating Card 2 (Top Left) -->
+                        <div id="card-2" class="orbiting-card w-44 md:w-52 pointer-events-auto"
+                             style="animation: web-drift-2 14s ease-in-out infinite;">
+                            <div class="bg-white/10 backdrop-blur-md border border-white/15 p-4 rounded-2xl shadow-xl text-right orbiting-card-inner">
+                                <div class="flex items-center gap-1.5 mb-1 text-highlight">
+                                    <i class="ph ph-bowl-food text-base"></i>
+                                    <h4 class="font-heading font-black text-[10px] md:text-xs">دجاج محلي طازج 100%</h4>
+                                </div>
+                                <p class="text-[9px] md:text-[10px] text-gray-300 leading-relaxed font-light">
+                                    نحضر دجاجنا من المزارع المحلية يومياً ويتبل يدوياً دون أي تجميد لتستمتع بلحم طري وعصيري.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Floating Card 3 (Bottom Right) -->
+                        <div id="card-3" class="orbiting-card w-44 md:w-52 pointer-events-auto"
+                             style="animation: web-drift-3 15s ease-in-out infinite;">
+                            <div class="bg-white/10 backdrop-blur-md border border-white/15 p-4 rounded-2xl shadow-xl text-right orbiting-card-inner">
+                                <div class="flex items-center gap-1.5 mb-1 text-green-400">
+                                    <i class="ph ph-sparkles text-base"></i>
+                                    <h4 class="font-heading font-black text-[10px] md:text-xs">قرمشة ذهبية لا تقاوم</h4>
+                                </div>
+                                <p class="text-[9px] md:text-[10px] text-gray-300 leading-relaxed font-light">
+                                    طبقة خارجية ذهبية هشة ومقرمشة تأخذك إلى تجربة نكهات غنية ومتكاملة in كل قطمة.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Floating Card 4 (Bottom Left) -->
+                        <div id="card-4" class="orbiting-card w-44 md:w-52 pointer-events-auto"
+                             style="animation: web-drift-4 13s ease-in-out infinite;">
+                            <div class="bg-white/10 backdrop-blur-md border border-white/15 p-4 rounded-2xl shadow-xl text-right orbiting-card-inner">
+                                <div class="flex items-center gap-1.5 mb-1 text-red-400">
+                                    <i class="ph ph-flame text-base"></i>
+                                    <h4 class="font-heading font-black text-[10px] md:text-xs">طهي فوري طازج</h4>
+                                </div>
+                                <p class="text-[9px] md:text-[10px] text-gray-300 leading-relaxed font-light">
+                                    لا نقوم بطهي الدجاج مسبقاً! كل وجبة تطهى فور تأكيد طلبك لتصلك ساخنة وفي قمة قرمشتها.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Curve -->
+            <div class="absolute bottom-0 inset-x-0 h-12 bg-lightBg" style="clip-path: ellipse(60% 100% at 50% 100%);"></div>
+        </header>
+
+        <!-- Sticky Navigation & Search -->
+        <div id="sticky-nav" class="sticky top-[56px] md:top-[65px] z-30 glass transition-all duration-300" :class="{'shadow-md': scrolled}">
+            <div class="container mx-auto px-4 py-3.5">
+                <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                    
+                    <!-- Categories Tabs -->
+                    <div class="w-full md:w-2/3 overflow-x-auto no-scrollbar pb-1 md:pb-0">
+                        <div class="flex space-x-reverse space-x-2 w-max">
+                            <template x-for="category in categories" :key="category.id">
+                                <button @click="activeCategory = category.id; scrollToCategory(category.id)" 
+                                        class="px-5 py-2.5 rounded-xl font-heading font-bold text-xs md:text-sm transition-all duration-300 whitespace-nowrap focus:outline-none"
+                                        :class="activeCategory === category.id ? 'bg-primary text-white shadow-md shadow-primary/20 scale-105' : 'bg-kfcGray text-gray-600 hover:bg-gray-200'">
+                                    <span x-text="category.name"></span>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Search Bar -->
+                    <div class="w-full md:w-1/3 relative">
+                        <input type="text" x-model="searchQuery" placeholder="ابحث عن برجر، راب، وجبة..." 
+                               class="w-full bg-kfcGray border-2 border-transparent rounded-2xl py-3 pr-12 pl-4 focus:border-primary focus:bg-white transition-all text-sm font-medium outline-none">
+                        <i class="ph ph-magnifying-glass absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl"></i>
+                        
+                        <button x-show="searchQuery.length > 0" @click="searchQuery = ''" class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary">
+                            <i class="ph ph-x-circle text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Section Grid -->
+        <main id="menu-section" class="container mx-auto px-4 py-12 min-h-screen">
+            
+            <!-- Search Status Header -->
+            <div x-show="searchQuery.length > 0 && filteredItems.length > 0" class="mb-8 font-heading text-xl font-bold text-darkAccent">
+                نتائج البحث عن: "<span class="text-primary" x-text="searchQuery"></span>" (<span x-text="filteredItems.length"></span>)
+            </div>
+            
+            <!-- Search Empty State -->
+            <div x-show="searchQuery.length > 0 && filteredItems.length === 0" class="text-center py-20" style="display: none;">
+                <div class="bg-kfcGray w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="ph ph-smiley-sad text-5xl text-gray-400"></i>
+                </div>
+                <h3 class="font-heading text-2xl font-bold text-gray-600 mb-2">عذراً، لم نجد ما تبحث عنه</h3>
+                <p class="text-gray-400 max-w-sm mx-auto">جرب كتابة اسم الوجبة أو السندوتش بشكل آخر للتأكد من وجودها.</p>
+            </div>
+
+            <!-- Categories and Items Render -->
+            <div x-show="searchQuery.length === 0">
+                <template x-for="category in categories" :key="category.id">
+                    <section :id="'section-' + category.id" class="mb-20 pt-8" x-show="(activeCategory === 'all' || activeCategory === category.id) && getItemsByCategory(category.id).length > 0" x-transition>
+                        <div class="flex items-center gap-4 mb-10">
+                            <h2 class="font-heading text-2xl md:text-3xl font-black text-darkAccent" x-text="category.name"></h2>
+                            <div class="h-0.5 flex-grow bg-gray-200/80 rounded-full"></div>
+                        </div>
+
+                        <!-- Card Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
+                            <template x-for="item in getItemsByCategory(category.id)" :key="item.id">
+                                <!-- Menu Card Component -->
+                                <div class="menu-card bg-white rounded-[28px] p-5 pt-0 mt-8 shadow-sm border border-gray-100 flex flex-col relative h-full">
+                                    
+                                    <!-- Pop-Out Image (Floating on Card) -->
+                                    <div class="flex justify-center -mt-10 mb-4 relative z-10 cursor-pointer" @click="openItemDetails(item)">
+                                        <div class="w-36 h-36 rounded-full border-[6px] border-white shadow-xl overflow-hidden bg-white">
+                                            <img :src="item.image" :alt="item.name" class="w-full h-full object-cover pop-out-img">
+                                        </div>
+                                        
+                                        <!-- Hot/Spicy Badge -->
+                                        <div x-show="item.spicy" class="absolute top-2 right-2 bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md z-20" title="وجبة حارة">
+                                            <i class="ph ph-fire-bold"></i>
+                                        </div>
+                                    </div>
+
+                                    <!-- Tags & Main Info -->
+                                    <div class="flex-grow flex flex-col items-center text-center cursor-pointer" @click="openItemDetails(item)">
+                                        <!-- Tag / Badge -->
+                                        <span class="bg-kfcGray text-gray-500 text-xxs font-bold px-3 py-1 rounded-full mb-3 flex items-center gap-1">
+                                            <i class="ph ph-bowl-food"></i>
+                                            <span>مكونات طازجة</span>
+                                        </span>
+                                        
+                                        <h3 class="font-heading font-bold text-lg mb-2 text-darkAccent hover:text-primary transition-colors line-clamp-1" x-text="item.name"></h3>
+                                        <p class="text-gray-400 text-xs leading-relaxed mb-4 line-clamp-2" x-text="item.description"></p>
+                                    </div>
+
+                                    <!-- Footer (Price & CTA) -->
+                                    <div class="flex items-center justify-between mt-auto pt-3 border-t border-gray-100">
+                                        <div class="flex flex-col">
+                                            <span class="text-[10px] text-gray-400 font-bold mb-0.5">السعر</span>
+                                            <div class="font-heading font-black text-lg text-primary flex items-baseline gap-1">
+                                                <span x-text="item.price"></span>
+                                                <span class="text-xs font-bold text-darkAccent">₪</span>
+                                            </div>
+                                        </div>
+                                        <button @click="addToCart(item)" 
+                                                :disabled="item.available === false"
+                                                class="flex items-center gap-1.5 text-xs font-bold px-3 py-2.5 rounded-xl transition-all shadow-md focus:outline-none group"
+                                                :class="item.available === false ? 'bg-gray-300 text-gray-500 cursor-not-allowed shadow-none' : 'bg-primary hover:bg-primaryDark text-white hover:shadow-primary/20 hover:scale-105 active:scale-95'">
+                                            <i class="ph text-sm group-hover:scale-110 transition-transform" :class="item.available === false ? 'ph-prohibit' : 'ph-shopping-cart-simple'"></i>
+                                            <span x-text="item.available === false ? 'نفذت الكمية' : 'أضف للطلب'"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </section>
+                </template>
+            </div>
+
+            <!-- Search Results Display Grid -->
+            <div x-show="searchQuery.length > 0 && filteredItems.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16 mt-8">
+                <template x-for="item in filteredItems" :key="item.id">
+                     <div class="menu-card bg-white rounded-[28px] p-5 pt-0 mt-8 shadow-sm border border-gray-100 flex flex-col relative h-full">
+                        <div class="flex justify-center -mt-10 mb-4 relative z-10 cursor-pointer" @click="openItemDetails(item)">
+                            <div class="w-36 h-36 rounded-full border-[6px] border-white shadow-xl overflow-hidden bg-white">
+                                <img :src="item.image" :alt="item.name" class="w-full h-full object-cover pop-out-img">
+                            </div>
+                            <div x-show="item.spicy" class="absolute top-2 right-2 bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md z-20">
+                                <i class="ph ph-fire-bold"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow flex flex-col items-center text-center cursor-pointer" @click="openItemDetails(item)">
+                            <span class="bg-kfcGray text-gray-500 text-xxs font-bold px-3 py-1 rounded-full mb-3 flex items-center gap-1">
+                                <i class="ph ph-bowl-food"></i>
+                                <span>مكونات طازجة</span>
+                            </span>
+                            <h3 class="font-heading font-bold text-lg mb-2 text-darkAccent hover:text-primary transition-colors line-clamp-1" x-text="item.name"></h3>
+                            <p class="text-gray-400 text-xs leading-relaxed mb-4 line-clamp-2" x-text="item.description"></p>
+                        </div>
+                        <div class="flex items-center justify-between mt-auto pt-3 border-t border-gray-100">
+                            <div class="flex flex-col">
+                                <span class="text-[10px] text-gray-400 font-bold mb-0.5">السعر</span>
+                                <div class="font-heading font-black text-lg text-primary flex items-baseline gap-1">
+                                    <span x-text="item.price"></span>
+                                    <span class="text-xs font-bold text-darkAccent">₪</span>
+                                </div>
+                            </div>
+                            <button @click="addToCart(item)" 
+                                    class="flex items-center gap-1.5 bg-primary hover:bg-primaryDark text-white text-xs font-bold px-3 py-2.5 rounded-xl transition-all shadow-md hover:shadow-primary/20 hover:scale-105 active:scale-95 focus:outline-none group">
+                                <i class="ph ph-shopping-cart-simple text-sm group-hover:scale-110 transition-transform"></i>
+                                <span>أضف للطلب</span>
+                            </button>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </main>
+    </div>
+
+    <!-- 2. About View -->
+    <div x-show="activeTab === 'about'" x-transition class="container mx-auto px-4 py-24 min-h-[80vh]">
+        <div class="max-w-4xl mx-auto">
+            <span class="text-primary font-bold block text-center mb-2">تعرف علينا عن قرب</span>
+            <h1 class="font-heading text-3xl md:text-5xl font-black text-center text-darkAccent mb-12">قصتنا وسر القرمشة في غزة</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
+                <div>
+                    <h2 class="font-heading text-2xl font-bold text-primary mb-4">السر في الـ 11 عشبة وتوابل سرية</h2>
+                    <p class="text-gray-600 leading-relaxed text-sm md:text-base font-light mb-4">
+                        القصة تبدأ من شغفنا بتقديم تجربة طعام مقرمشة أصلية وفريدة من نوعها. نحرص في فرعنا بغزة على اتباع التوصيات الدقيقة لوصفة الكولونيل ساندرز الأصلية المكونة من 11 صنفاً من الأعشاب والتوابل السرية التي تعطي القرمشة لوناً وطعماً لا يقاوم.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed text-sm md:text-base font-light">
+                        نحن نستخدم دجاجاً محلياً طازجاً 100% يذبح يومياً ويحضر يدوياً بكل حب لضمان الجودة والسلامة والنكهة الغنية في كل قطعة نقدمها لزبائننا الكرام.
+                    </p>
+                </div>
+                <div class="relative flex justify-center">
+                    <div class="absolute inset-0 bg-primary/10 rounded-full blur-2xl scale-75"></div>
+                    <img src="https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?q=80&w=800&auto=format&fit=crop" alt="KFC Chicken piece" class="rounded-3xl shadow-xl w-full max-w-sm rotate-1">
+                </div>
+            </div>
+
+            <!-- Features list -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center">
+                    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4 text-primary text-xl">
+                        <i class="ph ph-cooking-pot"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-darkAccent mb-2">دجاج طازج 100%</h3>
+                    <p class="text-gray-400 text-xs font-light">نستخدم أجود أنواع الدجاج المحلي المذبوح يومياً وفق الشريعة الإسلامية.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center">
+                    <div class="w-12 h-12 bg-highlight/20 rounded-full flex items-center justify-center mb-4 text-highlight text-xl">
+                        <i class="ph ph-flame"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-darkAccent mb-2">الخلطة السرية الأصلية</h3>
+                    <p class="text-gray-400 text-xs font-light">الطعم الفريد والقرمشة المثالية بتوليفة التوابل الـ 11 الخاصة بنا.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center">
+                    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4 text-primary text-xl">
+                        <i class="ph ph-timer"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-darkAccent mb-2">تحضير ساخن وسريع</h3>
+                    <p class="text-gray-400 text-xs font-light">يتم طهي الوجبات فور تأكيد الطلب لتصلك في قمة نضجها وقرمشتها.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Branch View (Single Branch details) -->
+    <div x-show="activeTab === 'branch'" x-transition class="container mx-auto px-4 py-24 min-h-[80vh]">
+        <div class="max-w-4xl mx-auto">
+            <span class="text-primary font-bold block text-center mb-2">أين تجدنا</span>
+            <h1 class="font-heading text-3xl md:text-5xl font-black text-center text-darkAccent mb-12">فرع غزة الوحيد والموقع الرئيسي</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+                <!-- Location details card -->
+                <div class="md:col-span-5 bg-white rounded-3xl p-6 border border-gray-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <span class="bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full inline-block mb-4">الفرع الرئيسي الوحيد</span>
+                        <h2 class="font-heading text-xl font-bold text-darkAccent mb-6">كنتاكي غزة - شارع النصر</h2>
+                        
+                        <div class="space-y-4 text-sm text-gray-600 font-light">
+                            <div class="flex items-start gap-3">
+                                <i class="ph ph-map-pin text-primary text-xl mt-0.5"></i>
+                                <span>غزة، شارع النصر، بجانب مطعم العائلات</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="ph ph-clock text-primary text-xl"></i>
+                                <span>يومياً: 12:00 ظهراً - 12:00 منتصف الليل</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="ph ph-phone text-primary text-xl"></i>
+                                <span>للاتصال الهاتفي: <a href="tel:+970592410610" class="hover:text-primary transition-colors text-darkAccent font-bold" dir="ltr">059-241-0610</a></span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="ph ph-whatsapp-logo text-green-500 text-xl"></i>
+                                <span>واتساب الطلبات: <a href="https://wa.me/970592410610" target="_blank" class="hover:text-primary transition-colors text-darkAccent font-bold" dir="ltr">059-241-0610</a></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-gray-100">
+                        <button @click="activeTab = 'menu'; setTimeout(() => window.scrollTo(0, document.getElementById('menu-section').offsetTop - 100), 100)" 
+                                class="w-full bg-primary hover:bg-primaryDark text-white font-bold py-3.5 rounded-xl transition-all shadow-md text-center text-sm">
+                            اطلب من هذا الفرع الآن
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mock Interactive Map representation -->
+                <div class="md:col-span-7 bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm min-h-[300px] flex flex-col">
+                    <div class="bg-gray-150 p-4 border-b border-gray-100 flex items-center justify-between">
+                        <span class="font-heading font-bold text-sm text-darkAccent">خريطة الموقع التقريبية</span>
+                        <span class="text-xs text-primary font-bold flex items-center gap-1"><i class="ph ph-dot-outline-fill animate-ping"></i> مباشر</span>
+                    </div>
+                    <!-- Represents a mock Google Map tailored for Gaza Rimal -->
+                    <div class="flex-grow bg-[#E8ECE9] relative flex flex-center items-center justify-center p-8 text-center min-h-[250px]">
+                        <!-- Abstract Map Visual -->
+                        <div class="absolute inset-0 opacity-20 bg-cover" style="background-image: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=800&auto=format&fit=crop');"></div>
+                        
+                        <!-- Map Marker and details overlay -->
+                        <div class="z-10 bg-white/95 p-6 rounded-2xl shadow-xl max-w-sm border border-gray-200/50 backdrop-blur-sm">
+                            <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center shadow-lg shadow-primary/20 mx-auto mb-3 animate-bounce">
+                                <i class="ph ph-map-pin text-white text-2xl"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-base text-darkAccent mb-1">KFC Gaza</h3>
+                            <p class="text-gray-400 text-xs font-light mb-2">شارع النصر - غزة</p>
+                            <span class="inline-block bg-kfcGray text-gray-500 font-bold text-xxs px-2.5 py-1 rounded-md">بجانب مطعم العائلات</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Contact View -->
+    <div x-show="activeTab === 'contact'" x-transition class="container mx-auto px-4 py-24 min-h-[80vh]">
+        <div class="max-w-4xl mx-auto">
+            <span class="text-primary font-bold block text-center mb-2">يسعدنا تواصلك</span>
+            <h1 class="font-heading text-3xl md:text-5xl font-black text-center text-darkAccent mb-12">أهلاً بك .. اتصل بنا وسجل ملاحظاتك</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+                <div class="md:col-span-5 flex flex-col gap-4">
+                    <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-start gap-4">
+                        <div class="bg-primary/10 text-primary p-3 rounded-xl"><i class="ph ph-chat-circle text-2xl"></i></div>
+                        <div>
+                            <h3 class="font-heading font-bold text-base text-darkAccent mb-1">الدعم الفني والشكاوى</h3>
+                            <p class="text-xs text-gray-400 font-light mb-2">متاحين لخدمتك على مدار الساعة عبر الواتساب</p>
+                            <a href="https://wa.me/970592410610" target="_blank" rel="noopener noreferrer" class="text-xs text-primary font-bold hover:underline">مراسلة الدعم المباشر (059-241-0610)</a>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-start gap-4">
+                        <div class="bg-primary/10 text-primary p-3 rounded-xl"><i class="ph ph-phone text-2xl"></i></div>
+                        <div>
+                            <h3 class="font-heading font-bold text-base text-darkAccent mb-1">الاتصال الهاتفي السريع</h3>
+                            <p class="text-xs text-gray-400 font-light mb-2">اتصل بنا مباشرة لأي استفسارات عاجلة</p>
+                            <a href="tel:+970592410610" class="text-sm text-darkAccent font-bold hover:text-primary transition-colors inline-block" dir="ltr">059-241-0610</a>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-start gap-4">
+                        <div class="bg-primary/10 text-primary p-3 rounded-xl"><i class="ph ph-instagram-logo text-2xl"></i></div>
+                        <div>
+                            <h3 class="font-heading font-bold text-base text-darkAccent mb-1">حسابنا على انستغرام</h3>
+                            <p class="text-xs text-gray-400 font-light mb-2">تابع آخر العروض وجديدنا على حسابنا الرسمي</p>
+                            <a href="https://www.instagram.com/kfc_gaza/" target="_blank" rel="noopener noreferrer" class="text-xs text-primary font-bold hover:underline">@kfc_gaza</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Card -->
+                <div class="md:col-span-7 bg-white rounded-3xl p-6 md:p-8 border border-gray-100 shadow-sm">
+                    <h2 class="font-heading text-xl font-bold text-darkAccent mb-6">شاركنا رأيك أو اقتراحك</h2>
+                    
+                    <form @submit.prevent="alert('نشكرك على مشاركتنا رأيك! تم إرسال الرسالة بنجاح وسنتواصل معك قريباً.')" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 mb-1.5">الاسم الكريم</label>
+                            <input type="text" placeholder="اكتب اسمك هنا" class="w-full bg-kfcGray border border-transparent rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-primary outline-none transition-all" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 mb-1.5">رقم الجوال</label>
+                            <input type="tel" placeholder="059XXXXXXX" class="w-full bg-kfcGray border border-transparent rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-primary outline-none transition-all" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 mb-1.5">نص الرسالة أو الملاحظة</label>
+                            <textarea rows="3" placeholder="كيف كانت تجربتك معنا؟ اكتب رأيك هنا..." class="w-full bg-kfcGray border border-transparent rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-primary outline-none transition-all resize-none" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary hover:bg-primaryDark text-white font-bold py-3.5 rounded-xl transition-all shadow-md focus:outline-none">
+                            إرسال الرسالة للفرع
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4.5 Admin Dashboard Tab (Command Center) -->
+    <div x-show="activeTab === 'admin'" class="bg-adminBg text-white min-h-screen relative flex flex-col w-full" style="display: none;">
+        <!-- If not logged in, show lockscreen -->
+        <div x-show="!adminLoggedIn" class="flex-grow flex items-center justify-center p-4 bg-[#0a0d16] min-h-screen w-full">
+            <div class="bg-adminBgSec p-8 rounded-3xl border border-white/10 shadow-2xl max-w-md w-full text-center relative overflow-hidden">
+                <!-- Terminal Glow -->
+                <div class="absolute -top-24 -left-24 w-48 h-48 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-primary/20">
+                    <i class="ph ph-terminal-window text-primary text-3xl animate-pulse"></i>
+                </div>
+                
+                <h2 class="font-heading font-black text-2xl mb-2 text-white">وحدة التحكم والقيادة</h2>
+                <p class="text-xs text-gray-400 mb-6 leading-relaxed font-light">أدخل بيانات المشرف للوصول إلى لوحة المراقبة والتحكم في قائمة الطعام والتحليلات</p>
+                
+                <form @submit.prevent="if (adminLoginForm.username === 'admin' && adminLoginForm.password === 'admin123') { adminLoggedIn = true; localStorage.setItem('kfc_admin_logged_in', 'true'); showToast('تم تسجيل الدخول بنجاح', 'مرحباً بك في لوحة تحكم كنتاكي غزة'); } else { alert('خطأ في اسم المستخدم أو كلمة المرور'); }" class="space-y-4 text-right">
+                    <div>
+                        <label class="block text-xxs font-bold text-gray-400 uppercase tracking-wider mb-1.5">اسم المستخدم</label>
+                        <div class="relative">
+                            <input type="text" x-model="adminLoginForm.username" placeholder="admin" required
+                                   class="w-full bg-[#111625] border border-white/10 rounded-xl py-3 pr-10 pl-4 text-sm text-white focus:border-primary outline-none transition-all">
+                            <i class="ph ph-user absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xxs font-bold text-gray-400 uppercase tracking-wider mb-1.5">كلمة المرور</label>
+                        <div class="relative">
+                            <input type="password" x-model="adminLoginForm.password" placeholder="••••••••" required
+                                   class="w-full bg-[#111625] border border-white/10 rounded-xl py-3 pr-10 pl-4 text-sm text-white focus:border-primary outline-none transition-all">
+                            <i class="ph ph-lock absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"></i>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-primary hover:bg-primaryDark text-white font-bold py-3.5 rounded-xl transition-all shadow-md shadow-primary/10 hover:shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] focus:outline-none text-sm mt-2 flex items-center justify-center gap-2">
+                        <i class="ph ph-sign-in text-lg"></i>
+                        <span>التحقق والدخول للمنصة</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- If logged in, show command center dashboard -->
+        <div x-show="adminLoggedIn" class="flex-grow flex flex-col lg:flex-row min-h-screen w-full" style="display: none;">
+            
+            <!-- Dashboard Sidebar (Right-positioned in RTL) -->
+            <aside class="w-full lg:w-64 bg-adminBgSec border-l border-white/5 flex flex-col justify-between p-6 z-10 shrink-0">
+                <div class="space-y-8">
+                    <!-- Brand / System Logo -->
+                    <div class="flex items-center gap-3 pb-6 border-b border-white/5">
+                        <div class="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center border border-primary/20 shrink-0">
+                            <i class="ph ph-terminal-window text-primary text-xl"></i>
+                        </div>
+                        <div class="flex flex-col text-right">
+                            <span class="font-heading font-black text-sm text-white leading-none">لوحة التحكم الإدارية</span>
+                            <span class="text-[9px] font-bold text-gray-400 tracking-wider mt-1 uppercase leading-none">KFC Gaza Command</span>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Links -->
+                    <nav class="flex flex-col gap-1 text-right">
+                        <button @click="adminActiveSubTab = 'analytics'"
+                                class="w-full py-3 px-4 rounded-xl font-heading font-bold text-xs flex items-center gap-3 transition-all outline-none"
+                                :class="adminActiveSubTab === 'analytics' ? 'bg-primary text-white shadow-md shadow-primary/10' : 'text-gray-400 hover:bg-white/5 hover:text-white'">
+                            <i class="ph ph-chart-bar-horizontal text-lg"></i>
+                            <span>التحليلات والمراقبة</span>
+                        </button>
+                        <button @click="adminActiveSubTab = 'menu'"
+                                class="w-full py-3 px-4 rounded-xl font-heading font-bold text-xs flex items-center gap-3 transition-all outline-none"
+                                :class="adminActiveSubTab === 'menu' ? 'bg-primary text-white shadow-md shadow-primary/10' : 'text-gray-400 hover:bg-white/5 hover:text-white'">
+                            <i class="ph ph-bowl-food text-lg"></i>
+                            <span>إدارة قائمة الطعام</span>
+                        </button>
+                        <button @click="adminActiveSubTab = 'media'"
+                                class="w-full py-3 px-4 rounded-xl font-heading font-bold text-xs flex items-center gap-3 transition-all outline-none"
+                                :class="adminActiveSubTab === 'media' ? 'bg-primary text-white shadow-md shadow-primary/10' : 'text-gray-400 hover:bg-white/5 hover:text-white'">
+                            <i class="ph ph-image text-lg"></i>
+                            <span>الوسائط ومحمل الصور</span>
+                        </button>
+                        <button @click="adminActiveSubTab = 'settings'"
+                                class="w-full py-3 px-4 rounded-xl font-heading font-bold text-xs flex items-center gap-3 transition-all outline-none"
+                                :class="adminActiveSubTab === 'settings' ? 'bg-primary text-white shadow-md shadow-primary/10' : 'text-gray-400 hover:bg-white/5 hover:text-white'">
+                            <i class="ph ph-sliders text-lg"></i>
+                            <span>إعدادات النظام والفرع</span>
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- Footer Operations (Logout & Exit) -->
+                <div class="mt-8 pt-6 border-t border-white/5 space-y-2">
+                    <button @click="activeTab = 'menu'; window.scrollTo(0,0)"
+                            class="w-full py-2.5 px-4 rounded-xl font-heading font-bold text-[10px] text-gray-400 hover:bg-white/5 hover:text-white flex items-center gap-3 transition-all outline-none">
+                        <i class="ph ph-arrow-right text-base"></i>
+                        <span>عرض موقع العملاء</span>
+                    </button>
+                    <button @click="adminLoggedIn = false; localStorage.removeItem('kfc_admin_logged_in'); showToast('تم تسجيل الخروج', 'إغلاق لوحة القيادة بنجاح');"
+                            class="w-full py-2.5 px-4 rounded-xl font-heading font-bold text-[10px] text-red-400 hover:bg-red-500/10 flex items-center gap-3 transition-all outline-none">
+                        <i class="ph ph-power text-base"></i>
+                        <span>تسجيل الخروج الآمن</span>
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Main Panel Content -->
+            <main class="flex-grow p-6 md:p-8 overflow-y-auto w-full no-scrollbar max-w-full">
+                
+                <!-- TOP HEADER METRICS BAR -->
+                <header class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8 pb-6 border-b border-white/5">
+                    <div class="text-right">
+                        <h1 class="font-heading font-black text-2xl text-white">لوحة التحكم المركزية</h1>
+                        <p class="text-xs text-gray-400 font-light mt-1">تتبع التحليلات المتقدمة وإدارة الوجبات والفرع بالكامل</p>
+                    </div>
+                    <!-- System Health and Quick Stats -->
+                    <div class="flex flex-wrap items-center gap-4">
+                        <div class="bg-adminBgSec px-4 py-2.5 rounded-2xl border border-white/5 flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-adminSuccess animate-ping"></span>
+                            <span class="text-xxs text-gray-300 font-bold">حالة الملقم: مستقر</span>
+                        </div>
+                        <div class="bg-adminBgSec px-4 py-2.5 rounded-2xl border border-white/5 flex items-center gap-2">
+                            <i class="ph ph-users text-primary text-base"></i>
+                            <span class="text-xxs text-gray-300 font-bold">الزوار الآن: <span class="font-heading font-black text-white" x-text="adminLiveVisitors"></span></span>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- SUB-TABS DYNAMIC RENDERING -->
+
+                <!-- SUB-TAB 1: Analytics & Monitoring -->
+                <div x-show="adminActiveSubTab === 'analytics'" class="space-y-6">
+                    <!-- KPI Widgets -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-adminBgSec p-5 rounded-2xl border border-white/5 relative overflow-hidden">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xxs font-bold text-gray-400 uppercase">النشطون بالموقع</span>
+                                <div class="w-8 h-8 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400"><i class="ph ph-eye text-lg"></i></div>
+                            </div>
+                            <h3 class="font-heading font-black text-3xl text-white" x-text="adminLiveVisitors"></h3>
+                            <p class="text-[10px] text-gray-400 mt-2 font-light">تحديث تلقائي كل 4 ثوانٍ</p>
+                        </div>
+                        <div class="bg-adminBgSec p-5 rounded-2xl border border-white/5 relative overflow-hidden">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xxs font-bold text-gray-400 uppercase">سلات تسوق نشطة</span>
+                                <div class="w-8 h-8 bg-yellow-500/10 rounded-xl flex items-center justify-center text-yellow-400"><i class="ph ph-shopping-cart text-lg"></i></div>
+                            </div>
+                            <h3 class="font-heading font-black text-3xl text-white" x-text="adminLiveCarts"></h3>
+                            <p class="text-[10px] text-gray-400 mt-2 font-light">سلات مستخدمين نشطة حالياً</p>
+                        </div>
+                        <div class="bg-adminBgSec p-5 rounded-2xl border border-white/5 relative overflow-hidden">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xxs font-bold text-gray-400 uppercase">طلبات اليوم</span>
+                                <div class="w-8 h-8 bg-green-500/10 rounded-xl flex items-center justify-center text-green-400"><i class="ph ph-shopping-bag text-lg"></i></div>
+                            </div>
+                            <h3 class="font-heading font-black text-3xl text-white" x-text="adminLiveOrders"></h3>
+                            <p class="text-[10px] text-gray-400 mt-2 font-light">تم إرسالها لفرع غزة النصر</p>
+                        </div>
+                        <div class="bg-adminBgSec p-5 rounded-2xl border border-white/5 relative overflow-hidden">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xxs font-bold text-gray-400 uppercase">مبيعات اليوم المقدرة</span>
+                                <div class="w-8 h-8 bg-red-500/10 rounded-xl flex items-center justify-center text-red-400"><i class="ph ph-currency-circle-dollar text-lg"></i></div>
+                            </div>
+                            <h3 class="font-heading font-black text-3xl text-white" x-text="adminLiveOrders * 85 + ' ₪'"></h3>
+                            <p class="text-[10px] text-gray-400 mt-2 font-light">المبيعات الحقيقية من المنيو</p>
+                        </div>
+                    </div>
+
+                    <!-- Traffic Graph and Activity Logs -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                        <!-- Custom SVG Chart -->
+                        <div class="bg-adminBgSec p-6 rounded-3xl border border-white/5 lg:col-span-8 flex flex-col justify-between">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="font-heading font-bold text-base text-white">إحصائيات حركة التصفح الأسبوعية</h3>
+                                <span class="text-xxs bg-primary/10 text-primary border border-primary/20 px-2.5 py-1 rounded-lg font-bold">زوار أسبوعي</span>
+                            </div>
+                            <!-- SVG Line Graph Container -->
+                            <div class="w-full h-56 relative flex items-end">
+                                <svg viewBox="0 0 700 200" class="w-full h-full">
+                                    <defs>
+                                        <!-- Gradient Fill -->
+                                        <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stop-color="#E4002B" stop-opacity="0.3"></stop>
+                                            <stop offset="100%" stop-color="#E4002B" stop-opacity="0"></stop>
+                                        </linearGradient>
+                                    </defs>
+                                    <!-- Grid Lines -->
+                                    <line x1="0" y1="50" x2="700" y2="50" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+                                    <line x1="0" y1="100" x2="700" y2="100" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+                                    <line x1="0" y1="150" x2="700" y2="150" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+                                    
+                                    <!-- Filled Path -->
+                                    <path d="M 0,200 L 0,130 Q 116,90 116,110 T 233,60 T 350,140 T 466,70 T 583,90 L 700,40 L 700,200 Z" fill="url(#chartGrad)"></path>
+                                    
+                                    <!-- Line Path -->
+                                    <path d="M 0,130 Q 116,90 116,110 T 233,60 T 350,140 T 466,70 T 583,90 L 700,40" fill="none" stroke="#E4002B" stroke-width="3"></path>
+                                    
+                                    <!-- Data Points Nodes -->
+                                    <circle cx="116" cy="110" r="5" fill="#FFFFFF" stroke="#E4002B" stroke-width="3"></circle>
+                                    <circle cx="233" cy="60" r="5" fill="#FFFFFF" stroke="#E4002B" stroke-width="3"></circle>
+                                    <circle cx="350" cy="140" r="5" fill="#FFFFFF" stroke="#E4002B" stroke-width="3"></circle>
+                                    <circle cx="466" cy="70" r="5" fill="#FFFFFF" stroke="#E4002B" stroke-width="3"></circle>
+                                    <circle cx="583" cy="90" r="5" fill="#FFFFFF" stroke="#E4002B" stroke-width="3"></circle>
+                                </svg>
+                            </div>
+                            <div class="flex justify-between items-center text-[10px] text-gray-500 font-bold mt-4 px-2">
+                                <span>السبت</span>
+                                <span>الأحد</span>
+                                <span>الأثنين</span>
+                                <span>الثلاثاء</span>
+                                <span>الأربعاء</span>
+                                <span>الخميس</span>
+                                <span>الجمعة</span>
+                            </div>
+                        </div>
+
+                        <!-- Live Activity logs -->
+                        <div class="bg-adminBgSec p-6 rounded-3xl border border-white/5 lg:col-span-4 flex flex-col justify-between min-h-[300px]">
+                            <div>
+                                <div class="flex justify-between items-center mb-4 pb-3 border-b border-white/5">
+                                    <h3 class="font-heading font-bold text-base text-white">سجل العمليات والأنشطة الحية</h3>
+                                    <span class="w-2.5 h-2.5 rounded-full bg-adminSuccess animate-pulse"></span>
+                                </div>
+                                <div class="space-y-3 max-h-[220px] overflow-y-auto no-scrollbar text-right">
+                                    <template x-for="log in adminLiveActivityLog" :key="log.time + log.event">
+                                        <div class="flex items-start gap-3 text-xs p-2 rounded-xl bg-[#111625]/50 border border-white/5 transition-all">
+                                            <span class="text-[9px] text-primary font-bold font-heading bg-primary/10 px-1.5 py-0.5 rounded-md mt-0.5" x-text="log.time"></span>
+                                            <span class="text-gray-300 font-light" x-text="log.event"></span>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                            <p class="text-[9px] text-gray-500 text-center font-light mt-4 pt-3 border-t border-white/5">تتبع فوري لتصرفات المستخدمين في المتجر</p>
+                        </div>
+                    </div>
+
+                    <!-- KPIs Metrics - Top Items Selling -->
+                    <div class="bg-adminBgSec p-6 rounded-3xl border border-white/5">
+                        <h3 class="font-heading font-bold text-base text-white mb-6">مؤشرات الوجبات الأكثر طلباً ومبيعاً</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="bg-[#111625] p-5 rounded-2xl border border-white/5 flex flex-col justify-between">
+                                <span class="text-xs font-bold text-primary mb-1">المركز الأول (الأكثر مبيعاً)</span>
+                                <h4 class="font-heading font-bold text-base text-white mb-3">بوكس ماستر (Box Master)</h4>
+                                <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-primary h-full rounded-full" style="width: 82%;"></div>
+                                </div>
+                                <span class="text-[10px] text-gray-400 mt-2 block text-left">82% من إجمالي الطلبات الفردية</span>
+                            </div>
+                            <div class="bg-[#111625] p-5 rounded-2xl border border-white/5 flex flex-col justify-between">
+                                <span class="text-xs font-bold text-highlight mb-1">المركز الثاني</span>
+                                <h4 class="font-heading font-bold text-base text-white mb-3">وجبة دجاج كنتاكي (4 قطع)</h4>
+                                <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-highlight h-full rounded-full" style="width: 68%;"></div>
+                                </div>
+                                <span class="text-[10px] text-gray-400 mt-2 block text-left">68% من مبيعات الوجبات</span>
+                            </div>
+                            <div class="bg-[#111625] p-5 rounded-2xl border border-white/5 flex flex-col justify-between">
+                                <span class="text-xs font-bold text-green-400 mb-1">المركز الثالث</span>
+                                <h4 class="font-heading font-bold text-base text-white mb-3">برجر زنجر (Zinger Burger)</h4>
+                                <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-green-400 h-full rounded-full" style="width: 55%;"></div>
+                                </div>
+                                <span class="text-[10px] text-gray-400 mt-2 block text-left">55% من مبيعات السندوتشات</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB-TAB 2: Menu CRUD Manager -->
+                <div x-show="adminActiveSubTab === 'menu'" class="space-y-6" style="display: none;">
+                    
+                    <!-- Search, filter and CRUD buttons bar -->
+                    <div class="bg-adminBgSec p-4 rounded-3xl border border-white/5 flex flex-col md:flex-row gap-4 items-center justify-between">
+                        <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+                            <!-- Category select -->
+                            <select x-model="activeCategory" 
+                                    class="bg-[#111625] text-white border border-white/10 rounded-xl px-4 py-2.5 text-xs font-bold focus:border-primary outline-none transition-all">
+                                <template x-for="cat in categories" :key="cat.id">
+                                    <option :value="cat.id" x-text="cat.name"></option>
+                                </template>
+                            </select>
+                            
+                            <!-- Search in admin -->
+                            <div class="relative w-full sm:w-64">
+                                <input type="text" x-model="searchQuery" placeholder="ابحث في قائمة المشرف..."
+                                       class="w-full bg-[#111625] border border-white/10 rounded-xl py-2.5 pr-9 pl-4 text-xs text-white focus:border-primary outline-none transition-all">
+                                <i class="ph ph-magnifying-glass absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"></i>
+                            </div>
+                        </div>
+
+                        <!-- Add Item Button -->
+                        <button @click="adminNewItem = { name: '', category: 'individual', description: '', price: 40, calories: '850', spicy: false, image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=600&auto=format&fit=crop', available: true }; adminShowAddModal = true;"
+                                class="bg-primary hover:bg-primaryDark text-white font-bold py-2.5 px-6 rounded-xl text-xs transition-all shadow-md shadow-primary/10 hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2 focus:outline-none w-full md:w-auto justify-center">
+                            <i class="ph ph-plus-bold text-sm"></i>
+                            <span>إضافة وجبة جديدة للقائمة</span>
+                        </button>
+                    </div>
+
+                    <!-- Products Table -->
+                    <div class="bg-adminBgSec rounded-3xl border border-white/5 overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-right border-collapse">
+                                <thead>
+                                    <tr class="border-b border-white/5 bg-[#111625]/60 text-xxs font-bold text-gray-400 uppercase tracking-wider text-right">
+                                        <th class="py-4 px-6">الوجبة</th>
+                                        <th class="py-4 px-6">الفئة</th>
+                                        <th class="py-4 px-6">السعر</th>
+                                        <th class="py-4 px-6">حالة التوفر للزبائن</th>
+                                        <th class="py-4 px-6 text-left">العمليات والتحكم</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-white/5 text-xs text-gray-300">
+                                    <!-- Filter and Render active items -->
+                                    <template x-for="item in menuItems.filter(i => (activeCategory === 'all' || i.category === activeCategory) && (searchQuery === '' || i.name.toLowerCase().includes(searchQuery.toLowerCase()) || (i.description && i.description.toLowerCase().includes(searchQuery.toLowerCase()))))" :key="item.id">
+                                        <tr class="hover:bg-white/[0.02] transition-colors">
+                                            <!-- Item Details -->
+                                            <td class="py-4 px-6 flex items-center gap-4">
+                                                <div class="w-12 h-12 rounded-xl overflow-hidden bg-gray-900 border border-white/5 shrink-0">
+                                                    <img :src="item.image" :alt="item.name" class="w-full h-full object-cover">
+                                                </div>
+                                                <div class="flex flex-col">
+                                                    <span class="font-heading font-bold text-white text-sm" x-text="item.name"></span>
+                                                    <span class="text-[10px] text-gray-500 font-light line-clamp-1 mt-0.5" x-text="item.description"></span>
+                                                </div>
+                                            </td>
+                                            
+                                            <!-- Category -->
+                                            <td class="py-4 px-6">
+                                                <span class="bg-white/5 border border-white/5 px-2.5 py-1 rounded-md text-[10px] text-gray-400 font-bold"
+                                                      x-text="categories.find(c => c.id === item.category)?.name.split(' (')[0] || item.category"></span>
+                                            </td>
+                                            
+                                            <!-- Price -->
+                                            <td class="py-4 px-6 font-heading font-black text-white text-sm" x-text="item.price + ' ₪'"></td>
+                                            
+                                            <!-- Availability Toggle switch -->
+                                            <td class="py-4 px-6">
+                                                <div class="flex items-center gap-2.5">
+                                                    <!-- Toggle switch -->
+                                                    <button @click="item.available = (item.available !== false ? false : true); saveMenu(); showToast('تم تحديث حالة التوفر', `${item.name}: ${item.available !== false ? 'متوفر' : 'غير متوفر'}`);"
+                                                            class="w-10 h-5.5 rounded-full p-0.5 transition-all outline-none"
+                                                            :class="item.available !== false ? 'bg-adminSuccess' : 'bg-white/10'">
+                                                        <div class="w-4.5 h-4.5 bg-white rounded-full shadow-md transition-transform"
+                                                             :class="item.available !== false ? '-translate-x-4.5' : 'translate-x-0'"></div>
+                                                    </button>
+                                                    <span class="text-[10px] font-bold" :class="item.available !== false ? 'text-adminSuccess' : 'text-gray-500'"
+                                                          x-text="item.available !== false ? 'متوفر حالياً' : 'غير متوفر'"></span>
+                                                </div>
+                                            </td>
+                                            
+                                            <!-- Operation Actions -->
+                                            <td class="py-4 px-6 text-left space-x-reverse space-x-2 whitespace-nowrap">
+                                                <button @click="adminCropTargetItem = item; adminCropImageSrc = ''; adminShowCropperModal = true;"
+                                                        class="bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 border border-blue-600/20 py-1.5 px-3 rounded-lg text-[10px] font-bold transition-all focus:outline-none" title="تغيير وقص الصورة">
+                                                    <i class="ph ph-crop"></i>
+                                                </button>
+                                                <button @click="adminEditingItem = Object.assign({}, item); adminShowEditModal = true;"
+                                                        class="bg-white/5 hover:bg-white/10 text-white border border-white/5 py-1.5 px-3 rounded-lg text-[10px] font-bold transition-all focus:outline-none">
+                                                    <span>تعديل</span>
+                                                </button>
+                                                <button @click="if(confirm('هل أنت متأكد من حذف هذه الوجبة نهائياً؟')) { menuItems = menuItems.filter(i => i.id !== item.id); saveMenu(); showToast('تم حذف الوجبة', item.name); }"
+                                                        class="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 py-1.5 px-3 rounded-lg text-[10px] font-bold transition-all focus:outline-none">
+                                                    <span>حذف</span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB-TAB 3: Media & Images Manager -->
+                <div x-show="adminActiveSubTab === 'media'" class="space-y-6" style="display: none;">
+                    <div class="bg-adminBgSec p-6 rounded-3xl border border-white/5">
+                        <h3 class="font-heading font-bold text-base text-white mb-2">منصة رفع وصناعة صور الوجبات</h3>
+                        <p class="text-xs text-gray-400 font-light mb-6">اسحب وأسقط أي صورة هنا، ثم قم بقصها وضغطها لتوليد خلفية مفرغة وربطها بالوجبة مباشرة.</p>
+                        
+                        <!-- Drag and Drop Dropzone -->
+                        <div id="drag-drop-zone" 
+                             @dragover.prevent="$el.classList.add('border-primary', 'bg-primary/5')"
+                             @dragleave.prevent="$el.classList.remove('border-primary', 'bg-primary/5')"
+                             @drop.prevent="$el.classList.remove('border-primary', 'bg-primary/5'); const file = $event.dataTransfer.files[0]; if(file) { const reader = new FileReader(); reader.onload = (e) => { adminCropImageSrc = e.target.result; adminCropTargetItem = null; adminShowCropperModal = true; }; reader.readAsDataURL(file); }"
+                             @click="document.getElementById('file-upload-input').click()"
+                             class="border-2 border-dashed border-white/10 hover:border-primary/50 bg-[#111625]/40 hover:bg-[#111625]/80 py-12 px-6 rounded-2xl text-center cursor-pointer transition-all flex flex-col items-center justify-center gap-4">
+                            
+                            <input type="file" id="file-upload-input" accept="image/*" class="hidden"
+                                   @change="const file = $event.target.files[0]; if(file) { const reader = new FileReader(); reader.onload = (e) => { adminCropImageSrc = e.target.result; adminCropTargetItem = null; adminShowCropperModal = true; }; reader.readAsDataURL(file); }">
+                            
+                            <div class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center text-gray-400 border border-white/10">
+                                <i class="ph ph-cloud-arrow-up text-3xl"></i>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-sm font-bold text-white">اسحب ملف الصورة وأفلته هنا أو اضغط للتصفح</p>
+                                <p class="text-xxs text-gray-500 font-light">يدعم صيغ PNG, JPG, WEBP ويتم الضغط والقص محلياً وتلقائياً</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Images Quick Gallery -->
+                    <div class="bg-adminBgSec p-6 rounded-3xl border border-white/5">
+                        <h3 class="font-heading font-bold text-base text-white mb-6">معرض صور قائمة الطعام الحالية</h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
+                            <template x-for="item in menuItems" :key="item.id">
+                                <div class="bg-[#111625] p-3 rounded-2xl border border-white/5 flex flex-col items-center gap-3 group relative overflow-hidden">
+                                    <div class="w-full aspect-square rounded-xl overflow-hidden bg-gray-900">
+                                        <img :src="item.image" :alt="item.name" class="w-full h-full object-cover">
+                                    </div>
+                                    <span class="text-[10px] text-gray-300 font-bold text-center line-clamp-1 w-full" x-text="item.name"></span>
+                                    
+                                    <!-- Hover Apply Trigger Overlay -->
+                                    <button @click="adminCropTargetItem = item; adminCropImageSrc = ''; adminShowCropperModal = true;"
+                                            class="absolute inset-0 bg-black/80 flex items-center justify-center text-xs font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity focus:outline-none">
+                                        <i class="ph ph-crop text-lg ml-1.5"></i>
+                                        <span>قص وتعديل</span>
+                                    </button>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB-TAB 4: Settings -->
+                <div x-show="adminActiveSubTab === 'settings'" class="space-y-6" style="display: none;">
+                    <div class="bg-adminBgSec p-6 md:p-8 rounded-3xl border border-white/5">
+                        <h3 class="font-heading font-bold text-base text-white mb-6">إعدادات الفرع ونظام التحويل للواتساب</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-right">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 mb-2">اسم المتجر / المطعم</label>
+                                <input type="text" x-model="restaurantName"
+                                       class="w-full bg-[#111625] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-primary outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 mb-2">رقم جوال الواتساب المستلم للطلبات</label>
+                                <input type="text" x-model="whatsappNumber"
+                                       class="w-full bg-[#111625] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-primary outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 mb-2">رسوم التوصيل (ش.ج)</label>
+                                <input type="number" x-model.number="deliveryFee"
+                                       class="w-full bg-[#111625] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-primary outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 mb-2">عنوان الفرع الافتراضي</label>
+                                <input type="text" value="غزة، شارع النصر، بجانب مطعم العائلات" disabled
+                                       class="w-full bg-[#111625]/50 border border-white/5 rounded-xl px-4 py-3 text-sm text-gray-500 cursor-not-allowed outline-none">
+                            </div>
+                        </div>
+
+                        <div class="mt-8 pt-6 border-t border-white/5 flex justify-end">
+                            <button @click="saveMenu(); showToast('تم حفظ الإعدادات', 'تمت مزامنة بيانات الفرع بنجاح.');"
+                                    class="bg-primary hover:bg-primaryDark text-white font-bold py-3 px-8 rounded-xl text-xs transition-all shadow-md shadow-primary/10 hover:scale-[1.02] active:scale-[0.98] focus:outline-none">
+                                <span>حفظ وتطبيق الإعدادات الحالية</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- MODALS AREA inside Admin view -->
+
+        <!-- MODAL 1: ADD MEAL MODAL -->
+        <div x-show="adminShowAddModal" 
+             class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+             style="display: none;"
+             x-transition>
+            <div class="bg-adminBgSec w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl relative border border-white/10 p-6 text-right">
+                <button @click="adminShowAddModal = false" class="absolute top-4 left-4 text-gray-400 hover:text-white transition-colors">
+                    <i class="ph ph-x text-2xl"></i>
+                </button>
+                
+                <h3 class="font-heading font-black text-xl text-white mb-6">إضافة وجبة جديدة</h3>
+                
+                <form @submit.prevent="adminNewItem.id = Date.now(); menuItems.push(Object.assign({}, adminNewItem)); saveMenu(); adminShowAddModal = false; showToast('تمت إضافة وجبة جديدة', adminNewItem.name);" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-1.5">اسم الوجبة</label>
+                        <input type="text" x-model="adminNewItem.name" placeholder="مثال: زنجر بوكس" required
+                               class="w-full bg-[#111625] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-primary outline-none transition-all">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 mb-1.5">السعر (₪)</label>
+                            <input type="number" x-model.number="adminNewItem.price" required
+                                   class="w-full bg-[#111625] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-primary outline-none transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 mb-1.5">السعرات الحرارية</label>
+                            <input type="text" x-model="adminNewItem.calories" placeholder="850"
+                                   class="w-full bg-[#111625] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-primary outline-none transition-all">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 mb-1.5">الفئة</label>
+                            <select x-model="adminNewItem.category" required
+                                    class="w-full bg-[#111625] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-primary outline-none transition-all">
+                                <template x-for="cat in categories.filter(c => c.id !== 'all')" :key="cat.id">
+                                    <option :value="cat.id" x-text="cat.name"></option>
+                                </template>
+                            </select>
+                        </div>
+                        <div class="flex items-center justify-center gap-4 mt-6">
+                            <label class="text-xs font-bold text-gray-400">سبايسي (حار)؟</label>
+                            <button type="button" @click="adminNewItem.spicy = !adminNewItem.spicy"
+                                    class="w-12 h-6.5 rounded-full p-0.5 transition-all outline-none"
+                                    :class="adminNewItem.spicy ? 'bg-primary' : 'bg-white/10'">
+                                <div class="w-5.5 h-5.5 bg-white rounded-full shadow-md transition-transform"
+                                     :class="adminNewItem.spicy ? '-translate-x-5.5' : 'translate-x-0'"></div>
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-1.5">الوصف والمكونات</label>
+                        <textarea x-model="adminNewItem.description" rows="2" placeholder="اكتب مكونات الوجبة وتفاصيلها..." required
+                                  class="w-full bg-[#111625] border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:border-primary outline-none transition-all resize-none"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-primary hover:bg-primaryDark text-white font-bold py-3 rounded-xl transition-all shadow-md mt-4 focus:outline-none">
+                        <span>إضافة وتثبيت في القائمة المباشرة</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- MODAL 2: EDIT MEAL MODAL -->
+        <div x-show="adminShowEditModal" 
+             class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+             style="display: none;"
+             x-transition>
+            <div class="bg-adminBgSec w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl relative border border-white/10 p-6 text-right">
+                <button @click="adminShowEditModal = false" class="absolute top-4 left-4 text-gray-400 hover:text-white transition-colors">
+                    <i class="ph ph-x text-2xl"></i>
+                </button>
+                
+                <h3 class="font-heading font-black text-xl text-white mb-6">تعديل بيانات الوجبة</h3>
+                
+                <form @submit.prevent="const idx = menuItems.findIndex(i => i.id === adminEditingItem.id); if(idx > -1) { menuItems[idx] = Object.assign({}, adminEditingItem); saveMenu(); adminShowEditModal = false; showToast('تم تحديث الوجبة بنجاح', adminEditingItem.name); }" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-1.5">اسم الوجبة</label>
+                        <input type="text" x-model="adminEditingItem.name" required
+                               class="w-full bg-[#111625] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-primary outline-none transition-all">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 mb-1.5">السعر (₪)</label>
+                            <input type="number" x-model.number="adminEditingItem.price" required
+                                   class="w-full bg-[#111625] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-primary outline-none transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 mb-1.5">السعرات الحرارية</label>
+                            <input type="text" x-model="adminEditingItem.calories"
+                                   class="w-full bg-[#111625] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-primary outline-none transition-all">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 mb-1.5">الفئة</label>
+                            <select x-model="adminEditingItem.category" required
+                                    class="w-full bg-[#111625] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-primary outline-none transition-all">
+                                <template x-for="cat in categories.filter(c => c.id !== 'all')" :key="cat.id">
+                                    <option :value="cat.id" x-text="cat.name" :selected="cat.id === adminEditingItem.category"></option>
+                                </template>
+                            </select>
+                        </div>
+                        <div class="flex items-center justify-center gap-4 mt-6">
+                            <label class="text-xs font-bold text-gray-400">سبايسي (حار)؟</label>
+                            <button type="button" @click="adminEditingItem.spicy = !adminEditingItem.spicy"
+                                    class="w-12 h-6.5 rounded-full p-0.5 transition-all outline-none"
+                                    :class="adminEditingItem.spicy ? 'bg-primary' : 'bg-white/10'">
+                                <div class="w-5.5 h-5.5 bg-white rounded-full shadow-md transition-transform"
+                                     :class="adminEditingItem.spicy ? '-translate-x-5.5' : 'translate-x-0'"></div>
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-1.5">الوصف والمكونات</label>
+                        <textarea x-model="adminEditingItem.description" rows="2" required
+                                  class="w-full bg-[#111625] border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:border-primary outline-none transition-all resize-none"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-primary hover:bg-primaryDark text-white font-bold py-3 rounded-xl transition-all shadow-md mt-4 focus:outline-none">
+                        <span>تحديث وحفظ التعديلات الحالية</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- MODAL 3: CANVAS CROPPING MODAL -->
+        <div x-show="adminShowCropperModal" 
+             class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
+             style="display: none;"
+             x-transition
+             @mounted="setTimeout(() => { if(adminCropImageSrc) { const canvas = document.getElementById('crop-canvas'); const ctx = canvas.getContext('2d'); const img = new Image(); img.onload = () => { canvas.width = 400; canvas.height = 400; ctx.drawImage(img, 0, 0, 400, 400); }; img.src = adminCropImageSrc; } }, 200)">
+            <div class="bg-adminBgSec w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl relative border border-white/10 p-6 text-center">
+                <button @click="adminShowCropperModal = false; adminCropImageSrc = '';" class="absolute top-4 left-4 text-gray-400 hover:text-white transition-colors">
+                    <i class="ph ph-x text-2xl"></i>
+                </button>
+                
+                <h3 class="font-heading font-black text-xl text-white mb-2">محرر وقاص الصور المتقدم</h3>
+                <p class="text-xs text-gray-400 mb-6" x-text="adminCropTargetItem ? 'تعديل صورة الوجبة: ' + adminCropTargetItem.name : 'قص وضغط الصورة المرفوعة لحفظها'></p>
+                
+                <!-- Display Canvas -->
+                <div class="bg-black/40 border border-white/10 rounded-2xl p-4 flex justify-center items-center mx-auto mb-6 relative overflow-hidden w-[280px] h-[280px]">
+                    <!-- If no source is loaded (binding from existing) -->
+                    <template x-if="!adminCropImageSrc && adminCropTargetItem">
+                        <img :src="adminCropTargetItem.image" class="max-w-full max-h-full object-contain">
+                    </template>
+                    <!-- Visual Canvas for editor -->
+                    <canvas id="crop-canvas" class="max-w-full max-h-full object-contain" x-show="adminCropImageSrc"></canvas>
+                </div>
+
+                <!-- Input to select image if binding existing -->
+                <div x-show="!adminCropImageSrc" class="mb-6">
+                    <input type="file" id="crop-file-input" accept="image/*" class="hidden"
+                           @change="const file = $event.target.files[0]; if(file) { const reader = new FileReader(); reader.onload = (e) => { adminCropImageSrc = e.target.result; setTimeout(() => { const canvas = document.getElementById('crop-canvas'); const ctx = canvas.getContext('2d'); const img = new Image(); img.onload = () => { canvas.width = 400; canvas.height = 400; ctx.drawImage(img, 0, 0, 400, 400); }; img.src = adminCropImageSrc; }, 100); }; reader.readAsDataURL(file); }">
+                    <button @click="document.getElementById('crop-file-input').click()"
+                            class="bg-[#111625] hover:bg-black border border-white/10 py-3 px-6 rounded-xl text-xs font-bold transition-all text-white flex items-center justify-center gap-2 mx-auto focus:outline-none">
+                        <i class="ph ph-file-image text-lg"></i>
+                        <span>اختر ملف صورة من جهازك</span>
+                    </button>
+                </div>
+
+                <!-- Cropping options -->
+                <div class="flex gap-3 justify-center">
+                    <button @click="adminShowCropperModal = false; adminCropImageSrc = '';" 
+                            class="border border-white/10 hover:bg-white/5 text-gray-400 hover:text-white font-bold py-3 px-6 rounded-xl text-xs transition-all focus:outline-none">
+                        <span>إلغاء الأمر</span>
+                    </button>
+                    <button @click="if (adminCropImageSrc) { const canvas = document.getElementById('crop-canvas'); const croppedBase64 = canvas.toDataURL('image/png'); if (adminCropTargetItem) { const idx = menuItems.findIndex(i => i.id === adminCropTargetItem.id); if(idx > -1) { menuItems[idx].image = croppedBase64; saveMenu(); showToast('تم تحديث صورة الوجبة', adminCropTargetItem.name); } } else { alert('يرجى تحديد الوجبة لربط الصورة بها من تبويب القائمة'); } adminShowCropperModal = false; adminCropImageSrc = ''; } else { alert('يرجى اختيار ملف أولاً.'); }"
+                            :disabled="!adminCropImageSrc"
+                            class="bg-primary hover:bg-primaryDark text-white font-bold py-3 px-8 rounded-xl text-xs transition-all focus:outline-none flex items-center gap-1.5"
+                            :class="!adminCropImageSrc ? 'opacity-50 cursor-not-allowed' : ''">
+                        <i class="ph ph-check-circle text-base"></i>
+                        <span>قص، ضغط وحفظ الصورة للوجبة</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 5. Menu Item Detail Modal -->
+    <div x-show="itemDetailsModal.visible" 
+         class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+         style="display: none;"
+         x-transition>
+        <div @click.away="closeItemDetails()" 
+             class="bg-white w-full max-w-lg rounded-[2.5rem] overflow-hidden shadow-2xl relative border border-gray-150 animate-scale-up">
+            
+            <!-- Close Button -->
+            <button @click="closeItemDetails()" 
+                    class="absolute top-4 left-4 z-20 bg-black/50 text-white w-9 h-9 rounded-full flex items-center justify-center hover:bg-primary hover:scale-105 active:scale-95 transition-all focus:outline-none">
+                <i class="ph ph-x text-lg"></i>
+            </button>
+
+            <!-- Large Item Image -->
+            <div class="relative h-60 w-full bg-gray-100">
+                <img :src="itemDetailsModal.item?.image" :alt="itemDetailsModal.item?.name" class="w-full h-full object-cover">
+                <!-- Outer Gradient -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                <!-- Title Overlay -->
+                <div class="absolute bottom-4 right-6 text-white">
+                    <h3 class="font-heading font-black text-2xl" x-text="itemDetailsModal.item?.name"></h3>
+                    <div class="flex items-center gap-2 mt-1">
+                        <span class="bg-primary px-2 py-0.5 rounded text-xxs font-bold uppercase tracking-wider">الأكثر مبيعاً</span>
+                        <span class="text-xs text-gray-300 font-light flex items-center gap-1"><i class="ph ph-fire"></i> 100% طازج</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div class="p-6">
+                <div class="mb-6">
+                    <h4 class="font-heading font-bold text-xs text-gray-400 mb-2">الوصف والمكونات</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed" x-text="itemDetailsModal.item?.description"></p>
+                </div>
+
+                <!-- Customization Field -->
+                <div class="mb-6">
+                    <label class="block font-heading font-bold text-xs text-gray-400 mb-2">ملاحظات أو تعديلات خاصة بالمنتج (اختياري)</label>
+                    <textarea x-model="itemDetailsModal.notes" 
+                              rows="2" 
+                              placeholder="مثال: بدون مايونيز، إضافة جبنة إضافية، حار جداً..." 
+                              class="w-full bg-kfcGray border border-transparent rounded-xl px-4 py-3 text-xs focus:bg-white focus:border-primary outline-none transition-all resize-none"></textarea>
+                </div>
+
+                <!-- Price and Add to Cart Section -->
+                <div class="flex items-center justify-between pt-4 border-t border-gray-150">
+                    <div class="flex flex-col">
+                        <span class="text-[10px] text-gray-400 font-bold mb-0.5">السعر الإجمالي</span>
+                        <div class="font-heading font-black text-2xl text-primary flex items-baseline gap-1">
+                            <span x-text="itemDetailsModal.item?.price"></span>
+                            <span class="text-sm font-bold text-darkAccent">₪</span>
+                        </div>
+                    </div>
+                    <button @click="addItemFromModal()" 
+                            :disabled="itemDetailsModal.item?.available === false"
+                            class="font-bold py-3.5 px-8 rounded-xl transition-all shadow-md flex items-center gap-2 focus:outline-none"
+                            :class="itemDetailsModal.item?.available === false ? 'bg-gray-300 text-gray-500 cursor-not-allowed shadow-none' : 'bg-primary hover:bg-primaryDark text-white hover:shadow-primary/20'">
+                        <i class="ph text-xl" :class="itemDetailsModal.item?.available === false ? 'ph-prohibit' : 'ph-plus-circle'"></i>
+                        <span x-text="itemDetailsModal.item?.available === false ? 'غير متوفر حالياً' : 'أضف إلى السلة'"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. Cart Drawer & Checkout -->
+    <div x-show="openCart" class="fixed inset-0 z-50 overflow-hidden" style="display: none;" x-transition>
+        <div class="absolute inset-0 overflow-hidden">
+            <!-- Background Overlay -->
+            <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" @click="openCart = false"></div>
+
+            <div class="fixed inset-y-0 left-0 max-w-full flex pr-10">
+                <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col animate-slide-left">
+                    
+                    <!-- Header -->
+                    <div class="px-6 py-5 border-b border-gray-150 flex items-center justify-between bg-darkAccent text-white">
+                        <div class="flex items-center gap-3">
+                            <i class="ph ph-shopping-bag-open text-2xl text-primary"></i>
+                            <h2 class="font-heading font-black text-lg">سلة الطلبات الخاصة بك</h2>
+                        </div>
+                        <button @click="openCart = false" class="text-gray-400 hover:text-white transition-colors p-1">
+                            <i class="ph ph-x text-2xl"></i>
+                        </button>
+                    </div>
+
+                    <!-- Cart Content -->
+                    <div class="flex-grow overflow-y-auto p-6 no-scrollbar">
+                        
+                        <!-- Empty Cart -->
+                        <div x-show="cart.length === 0" class="text-center py-20">
+                            <div class="w-20 h-20 bg-kfcGray rounded-full flex items-center justify-center mx-auto mb-6 text-gray-400">
+                                <i class="ph ph-shopping-cart text-4xl"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-lg text-gray-500 mb-2">السلة فارغة حالياً</h3>
+                            <p class="text-gray-400 text-xs max-w-xs mx-auto mb-6">تصفح قائمة الطعام الشهية واختر ما تشتهيه من قطع الدجاج المقرمشة والسندوتشات.</p>
+                            <button @click="openCart = false" class="bg-primary hover:bg-primaryDark text-white font-bold py-3 px-6 rounded-xl transition-all shadow-md text-xs">
+                                البدء في ملء السلة
+                            </button>
+                        </div>
+
+                        <!-- Cart items list (Step 1) -->
+                        <div x-show="cart.length > 0 && checkoutStep === 1" class="space-y-5">
+                            <template x-for="(cartItem, index) in cart" :key="index">
+                                <div class="bg-lightBg rounded-2xl p-4 border border-gray-100 flex items-start gap-4 shadow-sm relative">
+                                    
+                                    <!-- Thumbnail -->
+                                    <div class="w-16 h-16 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0">
+                                        <img :src="cartItem.image" :alt="cartItem.name" class="w-full h-full object-cover">
+                                    </div>
+                                    
+                                    <!-- Main Info -->
+                                    <div class="flex-grow">
+                                        <h4 class="font-heading font-bold text-sm text-darkAccent mb-1" x-text="cartItem.name"></h4>
+                                        <div class="flex items-center gap-1 mb-2">
+                                            <span class="text-xs text-primary font-bold" x-text="cartItem.price"></span>
+                                            <span class="text-[10px] text-gray-500">₪ للقطعة</span>
+                                        </div>
+                                        
+                                        <!-- Item note display -->
+                                        <div x-show="cartItem.notes" class="bg-white px-2.5 py-1.5 rounded-lg border border-gray-150 text-[10px] text-gray-400 mb-2">
+                                            <span class="font-bold text-primary">ملاحظتك:</span> <span x-text="cartItem.notes"></span>
+                                        </div>
+
+                                        <!-- Quantity and deletion controls -->
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center bg-white rounded-lg border border-gray-200 overflow-hidden">
+                                                <button @click="updateCartQty(index, -1)" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 text-sm font-bold">-</button>
+                                                <span x-text="cartItem.qty" class="w-8 text-center text-xs font-bold text-darkAccent"></span>
+                                                <button @click="updateCartQty(index, 1)" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 text-sm font-bold">+</button>
+                                            </div>
+                                            
+                                            <button @click="removeFromCart(index)" class="text-xs text-red-500 hover:text-red-700 font-bold flex items-center gap-1 focus:outline-none">
+                                                <i class="ph ph-trash"></i>
+                                                <span>حذف</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- Checkout Form (Step 2) -->
+                        <div x-show="cart.length > 0 && checkoutStep === 2" class="space-y-5">
+                            <h3 class="font-heading font-bold text-base text-darkAccent border-b border-gray-100 pb-2">بيانات التوصيل والتأكيد</h3>
+                            
+                            <div class="space-y-4">
+                                <!-- Name Input -->
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 mb-1.5">الاسم بالكامل <span class="text-primary">*</span></label>
+                                    <input type="text" x-model="orderForm.name" placeholder="اكتب اسمك الثنائي أو الثلاثي" 
+                                           class="w-full bg-kfcGray border border-transparent rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-primary outline-none transition-all">
+                                    <p x-show="orderForm.name.length > 0 && orderForm.name.length < 3" class="text-[10px] text-red-500 mt-1 font-light">يجب أن يحتوي الاسم على 3 حروف على الأقل</p>
+                                </div>
+
+                                <!-- Phone Input -->
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 mb-1.5">رقم الجوال (واتساب) <span class="text-primary">*</span></label>
+                                    <input type="tel" x-model="orderForm.phone" placeholder="059XXXXXXX أو 056XXXXXXX" 
+                                           class="w-full bg-kfcGray border border-transparent rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-primary outline-none transition-all">
+                                    <p x-show="orderForm.phone.length > 0 && !validateGazaPhone(orderForm.phone)" class="text-[10px] text-red-500 mt-1 font-light">يرجى كتابة رقم جوال فلسطيني صحيح (10 أرقام تبدأ بـ 059 أو 056)</p>
+                                </div>
+
+                                <!-- Order Type Selector -->
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 mb-1.5">طريقة استلام الطلب <span class="text-primary">*</span></label>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <button @click="orderForm.deliveryType = 'delivery'" 
+                                                class="py-2.5 rounded-xl border font-bold text-xs flex flex-col items-center justify-center gap-1 transition-all"
+                                                :class="orderForm.deliveryType === 'delivery' ? 'bg-primary text-white border-primary shadow-sm shadow-primary/10' : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'">
+                                            <i class="ph ph-moped text-lg"></i>
+                                            <span>خدمة التوصيل</span>
+                                        </button>
+                                        <button @click="orderForm.deliveryType = 'pickup'" 
+                                                class="py-2.5 rounded-xl border font-bold text-xs flex flex-col items-center justify-center gap-1 transition-all"
+                                                :class="orderForm.deliveryType === 'pickup' ? 'bg-primary text-white border-primary shadow-sm shadow-primary/10' : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'">
+                                            <i class="ph ph-storefront text-lg"></i>
+                                            <span>استلام من الفرع</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Address Input (Conditional) -->
+                                <div x-show="orderForm.deliveryType === 'delivery'" x-transition>
+                                    <label class="block text-xs font-bold text-gray-500 mb-1.5">العنوان بالتفصيل <span class="text-primary">*</span></label>
+                                    <input type="text" x-model="orderForm.address" placeholder="الشارع، اسم الحي، معلم مميز بجانب المنزل" 
+                                           class="w-full bg-kfcGray border border-transparent rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-primary outline-none transition-all">
+                                    <p x-show="orderForm.deliveryType === 'delivery' && orderForm.address.length > 0 && orderForm.address.length < 5" class="text-[10px] text-red-500 mt-1 font-light">يرجى كتابة عنوان واضح لتسهيل عملية التوصيل</p>
+                                </div>
+
+                                <!-- Pickup Location Display -->
+                                <div x-show="orderForm.deliveryType === 'pickup'" x-transition class="bg-gray-50 border border-gray-150 p-4 rounded-xl">
+                                    <span class="text-xs font-bold text-primary block mb-1">الفرع المتاح للاستلام:</span>
+                                    <p class="text-xs text-darkAccent font-bold">فرع غزة - شارع النصر</p>
+                                    <p class="text-[10px] text-gray-400 mt-0.5">شارع النصر - بجانب مطعم العائلات</p>
+                                </div>
+
+                                <!-- Order Notes Input -->
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 mb-1.5">ملاحظات عامة للطلب (اختياري)</label>
+                                    <textarea x-model="orderForm.notes" rows="2" placeholder="أدخل أي ملاحظات عامة للطلب مثل طريقة التوصيل أو تجهيز الوجبة..." 
+                                              class="w-full bg-kfcGray border border-transparent rounded-xl px-4 py-3 text-xs focus:bg-white focus:border-primary outline-none transition-all resize-none"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Footer / Checkout calculations -->
+                    <div x-show="cart.length > 0" class="p-6 border-t border-gray-150 bg-gray-50">
+                        <div class="space-y-2 mb-6">
+                            <div class="flex justify-between text-xs text-gray-500">
+                                <span>مجموع الوجبات</span>
+                                <span class="font-bold text-darkAccent" x-text="formatCurrency(cartSubtotal)"></span>
+                            </div>
+                            <div class="flex justify-between text-xs text-gray-500" x-show="orderForm.deliveryType === 'delivery'">
+                                <span>رسوم التوصيل</span>
+                                <span class="font-bold text-darkAccent" x-text="formatCurrency(deliveryFee)"></span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm font-bold border-t border-gray-200 pt-3 text-darkAccent">
+                                <span class="font-heading">المجموع الإجمالي</span>
+                                <span class="text-xl text-primary font-heading font-black" x-text="formatCurrency(cartTotal)"></span>
+                            </div>
+                        </div>
+
+                        <!-- Navigation buttons inside drawer footer -->
+                        <div class="flex gap-3">
+                            <!-- Back or Cancel -->
+                            <button x-show="checkoutStep === 2" 
+                                    @click="checkoutStep = 1" 
+                                    class="w-1/3 border border-gray-300 hover:bg-gray-100 text-gray-600 font-bold py-3.5 rounded-xl transition-all text-xs text-center focus:outline-none">
+                                العودة للسلة
+                            </button>
+                            
+                            <!-- Proceed to checkout step 2 -->
+                            <button x-show="checkoutStep === 1" 
+                                    @click="checkoutStep = 2" 
+                                    class="w-full bg-primary hover:bg-primaryDark text-white font-bold py-3.5 rounded-xl transition-all shadow-md hover:shadow-primary/20 text-center text-sm focus:outline-none flex items-center justify-center gap-2">
+                                <span>الذهاب للتأكيد والبيانات</span>
+                                <i class="ph ph-arrow-left-bold"></i>
+                            </button>
+
+                            <!-- Confirm Order via WhatsApp -->
+                            <button x-show="checkoutStep === 2" 
+                                    @click="sendOrderToWhatsApp()" 
+                                    class="flex-grow bg-green-600 hover:bg-green-700 text-white font-bold py-3.5 rounded-xl transition-all shadow-md hover:shadow-green-600/20 text-center text-sm focus:outline-none flex items-center justify-center gap-2">
+                                <i class="ph ph-whatsapp-logo text-xl"></i>
+                                <span>تأكيد وإرسال عبر الواتساب</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- App Footer -->
+    <footer x-show="activeTab !== 'admin'" class="bg-darkAccent text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
+                
+                <!-- Brand Info -->
+                <div class="md:col-span-4 space-y-4">
+                    <div class="flex items-center gap-2.5">
+                        <!-- Official KFC SVG Logo -->
+                        <svg viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 fill-primary animate-pulse">
+                            <path d="M21.893 8.23c-4.187.001-5.249 2.365-5.42 3.97-.194 1.802 1.053 3.57 4.127 3.57 1.294 0 2.14-.225 2.44-.32a.215.215 0 0 0 .147-.166l.173-.91a.184.184 0 0 0-.236-.21c-.336.106-.93.252-1.685.252-1.469 0-2.53-.882-2.395-2.4.13-1.47 1.121-2.59 2.485-2.59.82 0 1.183.43 1.156 1.003v.033a.184.184 0 0 0 .182.193h.557c.086 0 .16-.06.18-.143l.39-1.76a.215.215 0 0 0-.15-.255 7.21 7.21 0 0 0-1.95-.266zm-20.157.116a.2.2 0 0 0-.195.156l-.108.484a.198.198 0 0 0 .13.23l.033.01c.208.082.45.266.348.748l-.792 3.62c-.207.987-.542 1.19-.86 1.226h-.01a.2.2 0 0 0-.176.157l-.102.464a.192.192 0 0 0 .187.233h3.487c.085 0 .159-.06.177-.142l.12-.543a.184.184 0 0 0-.112-.21l-.022-.01c-.177-.07-.418-.224-.356-.51l.405-1.85c1.389 2.535 1.848 3.266 3.514 3.265H8.91a.181.181 0 0 0 .177-.142l.105-.47a.195.195 0 0 0-.186-.238c-.376-.006-.56-.093-.935-.575l-1.932-2.614 2.51-2.088c.337-.264.748-.338.976-.368l.022-.002a.185.185 0 0 0 .163-.144l.103-.464a.184.184 0 0 0-.18-.223h-3.02a.199.199 0 0 0-.193.155l-.102.46a.2.2 0 0 0 .138.235c.178.069.217.24.063.366L4.046 11.7l.44-2.014a.683.683 0 0 1 .477-.487l.025-.008a.199.199 0 0 0 .135-.147l.106-.477a.181.181 0 0 0-.177-.22zm8.88 0a.2.2 0 0 0-.194.156l-.107.483a.19.19 0 0 0 .122.221l.02.008c.204.077.487.274.364.758l-1.21 5.48a.182.182 0 0 0 .178.222h2.777c.086 0 .16-.06.179-.143l.12-.547a.174.174 0 0 0-.098-.196 1.558 1.558 0 0 1-.027-.013c-.176-.086-.438-.285-.35-.67.009-.05.27-1.24.27-1.24h2.362c.086 0 .16-.06.18-.143l.221-1a.183.183 0 0 0-.18-.224h-2.28l.427-1.94 1.592-.003c.515 0 .672.27.642.728l-.002.024a.184.184 0 0 0 .183.205h.587c.086 0 .16-.06.178-.144l.4-1.8a.184.184 0 0 0-.18-.222z"/>
+                        </svg>
+                        <h3 class="font-heading text-2xl font-black text-primary leading-none">كنتاكي غزة</h3>
+                    </div>
+                    <p class="text-gray-400 text-xs md:text-sm leading-relaxed font-light">
+                        نقدم الوجبات الأكثر قرمشة ولذة في غزة بالخلطة الأصلية و100% دجاج طازج محلي. اطلب طعامك واستلمه ساخناً من فرعنا بشارع النصر (بجانب العائلات).
+                    </p>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary transition-colors text-white text-lg">
+                            <i class="ph ph-facebook-logo"></i>
+                        </a>
+                        <a href="https://www.instagram.com/kfc_gaza/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary transition-colors text-white text-lg" title="تابعنا على انستغرام">
+                            <i class="ph ph-instagram-logo"></i>
+                        </a>
+                        <a href="https://wa.me/970592410610" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary transition-colors text-white text-lg" title="تواصل معنا عبر واتساب">
+                            <i class="ph ph-whatsapp-logo"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Links column -->
+                <div class="md:col-span-3 space-y-4">
+                    <h4 class="font-heading font-bold text-base border-r-2 border-primary pr-2">روابط هامة</h4>
+                    <ul class="space-y-2.5 text-xs text-gray-400 font-light">
+                        <li><a href="#" @click.prevent="activeTab = 'menu'; window.scrollTo(0,0)" class="hover:text-highlight transition-colors flex items-center gap-1.5"><i class="ph ph-caret-left"></i> المنيو والطلبات</a></li>
+                        <li><a href="#" @click.prevent="activeTab = 'about'; window.scrollTo(0,0)" class="hover:text-highlight transition-colors flex items-center gap-1.5"><i class="ph ph-caret-left"></i> قصة القرمشة (حولنا)</a></li>
+                        <li><a href="#" @click.prevent="activeTab = 'branch'; window.scrollTo(0,0)" class="hover:text-highlight transition-colors flex items-center gap-1.5"><i class="ph ph-caret-left"></i> تفاصيل الفرع ومواعيد العمل</a></li>
+                        <li><a href="#" @click.prevent="activeTab = 'contact'; window.scrollTo(0,0)" class="hover:text-highlight transition-colors flex items-center gap-1.5"><i class="ph ph-caret-left"></i> خدمة العملاء والدعم</a></li>
+                    </ul>
+                </div>
+
+                <!-- Branch & Delivery details -->
+                <div class="md:col-span-5 space-y-4">
+                    <h4 class="font-heading font-bold text-base border-r-2 border-primary pr-2">معلومات الفرع الرئيسي والوحيد</h4>
+                    <ul class="space-y-3 text-xs text-gray-400 font-light">
+                        <li class="flex items-start gap-2.5">
+                            <i class="ph ph-map-pin text-primary text-lg mt-0.5"></i>
+                            <span>غزة، شارع النصر، بجانب مطعم العائلات</span>
+                        </li>
+                        <li class="flex items-center gap-2.5">
+                            <i class="ph ph-clock text-primary text-lg"></i>
+                            <span>مواعيد العمل: يومياً من 12:00 ظهراً - 12:00 منتصف الليل</span>
+                        </li>
+                        <li class="flex items-center gap-2.5">
+                            <i class="ph ph-phone text-primary text-lg"></i>
+                            <span>للاتصال الهاتفي: <a href="tel:+970592410610" class="text-white hover:text-primary" dir="ltr">059-241-0610</a></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 mt-8 text-center text-xs text-gray-500 font-light">
+                <p>جميع الحقوق محفوظة &copy; 2026 دجاج كنتاكي غزة - فرع شارع النصر الرئيسي.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Alpine App Logic -->
+    <script>
+        function menuApp() {
+            return {
+                scrolled: false,
+                activeTab: 'menu', // current view tab
+                activeCategory: 'all', // active filter category
+                searchQuery: '',
+                cart: [],
+                openCart: false,
+                checkoutStep: 1, // 1 for cart items, 2 for detail fields
+                
+                toast: {
+                    visible: false,
+                    title: '',
+                    message: ''
+                },
+                countdown: {
+                    hours: '12',
+                    minutes: '45',
+                    seconds: '00'
+                },
+
+                // Detailed view modal state
+                itemDetailsModal: {
+                    visible: false,
+                    item: null,
+                    notes: ''
+                },
+
+                // Branch and config
+                restaurantName: 'كنتاكي غزة',
+                whatsappNumber: '970592410610', // KFC Gaza Whatsapp Mobile Number for order routing
+                deliveryFee: 10, // Delivery fee in Shekel (₪)
+
+                // Admin Dashboard State variables
+                adminLoggedIn: localStorage.getItem('kfc_admin_logged_in') === 'true',
+                adminLoginForm: {
+                    username: '',
+                    password: ''
+                },
+                adminActiveSubTab: 'analytics',
+                
+                // Analytics Simulated Data
+                adminLiveVisitors: 45,
+                adminLiveOrders: 18,
+                adminLiveCarts: 3,
+                adminLiveActivityLog: [
+                    { time: '20:45', event: 'عميل تصفح قسم الوجبات عائلية ومشاركة' },
+                    { time: '20:47', event: 'تمت إضافة وجبة فاميلي باك للسلة' },
+                    { time: '20:50', event: 'عميل استعلم عن تفاصيل الفرع ومواعيد العمل' }
+                ],
+                
+                // CRUD form states
+                adminEditingItem: null,
+                adminNewItem: {
+                    name: '',
+                    category: 'individual',
+                    description: '',
+                    price: 40,
+                    calories: '850',
+                    spicy: false,
+                    image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=600&auto=format&fit=crop',
+                    available: true
+                },
+                adminShowAddModal: false,
+                adminShowEditModal: false,
+                
+                // Uploader/Cropper state
+                adminCropImageFile: null,
+                adminCropImageSrc: '',
+                adminCropTargetItem: null,
+                adminShowCropperModal: false,
+
+                // Save CRUD menuItems state to localStorage
+                saveMenu() {
+                    localStorage.setItem('kfc_menu_items', JSON.stringify(this.menuItems));
+                },
+
+                // Customer Order Form
+                orderForm: {
+                    name: '',
+                    phone: '',
+                    deliveryType: 'delivery', // 'delivery' or 'pickup'
+                    address: '',
+                    notes: ''
+                },
+
+                // Alpine init method for routing setup
+                init() {
+                    // Sync tab with URL path on load
+                    const path = window.location.pathname.replace(/^\/|\/$/g, '');
+                    if (['menu', 'about', 'branch', 'contact', 'admin'].includes(path)) {
+                        this.activeTab = path;
+                    } else {
+                        this.activeTab = 'menu';
+                    }
+                    
+                    // Listen for popstate (browser back/forward buttons)
+                    window.addEventListener('popstate', () => {
+                        const newPath = window.location.pathname.replace(/^\/|\/$/g, '');
+                        if (['menu', 'about', 'branch', 'contact', 'admin'].includes(newPath)) {
+                            this.activeTab = newPath;
+                        } else {
+                            this.activeTab = 'menu';
+                        }
+                    });
+
+                    // Watch activeTab to update URL path without reload
+                    this.$watch('activeTab', value => {
+                        const currentPath = window.location.pathname.replace(/^\/|\/$/g, '');
+                        const targetPath = value === 'menu' ? '/' : (value === 'admin' ? '/admin' : '/' + value);
+                        if (currentPath !== value && !(currentPath === '' && value === 'menu')) {
+                            window.history.pushState(null, '', targetPath);
+                        }
+                        // Scroll to top with smooth transition on page change
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    });
+
+                    // Start background timers and interactive animations
+                    this.startCountdown();
+                    setTimeout(() => {
+                        this.initSpiderweb();
+                    }, 150);
+
+                    // Real-time Dashboard Live Metrics Logic
+                    // 1. Visitors: initialized to baseline 45, fluctuates slightly for visual dynamic feedback.
+                    setInterval(() => {
+                        const change = Math.floor(Math.random() * 5) - 2;
+                        this.adminLiveVisitors = Math.min(Math.max(this.adminLiveVisitors + change, 35), 65);
+                    }, 4000);
+
+                    // 2. Active Carts: dynamically tracked based on current actual user session. 
+                    // Baseline is 3. If there is a cart item, we add it to the count.
+                    this.$watch('cart.length', value => {
+                        // Dynamically update active carts count when cart modifications occur.
+                        this.adminLiveCarts = Math.max(3, value > 0 ? 3 + 1 : 3);
+                    });
+
+                    // 3. Orders: Base is 18. Actual checkouts increment the counter and trigger a live activity log.
+                    // We hook into the sendOrderToWhatsApp method or cart checkout process.
+
+                    const simulatedLogEvents = [
+                        "عميل تصفح قسم السندوتشات واللفائف",
+                        "عميل من حي الرمال أضاف برجر زنجر للسلة",
+                        "تمت إضافة تويستر سبايسي للسلة من مستخدم في شارع الجلاء",
+                        "عميل يستعلم عن موقع الفرع في شارع النصر",
+                        "عميل تصفح قسم الوجبات الفردية",
+                        "مستخدم أضاف طبق ريزو للسلة مع ملاحظة خاصة",
+                        "عميل تصفح قسم وجبات عائلية ومشاركة",
+                        "مستخدم تصفح صفحة من نحن وقصة القرمشة"
+                    ];
+
+                    setInterval(() => {
+                        const now = new Date();
+                        const timeStr = now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', second: '2-digit' }).split(' ')[0];
+                        const randomEvent = simulatedLogEvents[Math.floor(Math.random() * simulatedLogEvents.length)];
+                        
+                        this.adminLiveActivityLog.unshift({ time: timeStr, event: randomEvent });
+                        if (this.adminLiveActivityLog.length > 8) {
+                            this.adminLiveActivityLog.pop();
+                        }
+                    }, 12000);
+                },
+
+                // KFC Categories matching the exact uploaded items
+                categories: [
+                    { id: 'all', name: 'الكل (All)' },
+                    { id: 'family', name: 'وجبات عائلية ومشاركة (Family)' },
+                    { id: 'individual', name: 'وجبات فردية وبوكسات (Boxes)' },
+                    { id: 'burgers', name: 'السندوتشات واللفائف (Burgers & Wraps)' },
+                    { id: 'kids', name: 'وجبات الأطفال (Kids Meals)' }
+                ],
+
+                // KFC Menu items representing the exact items uploaded in the images (Loaded from localStorage if exists)
+                menuItems: JSON.parse(localStorage.getItem('kfc_menu_items')) || [
+                    // Category: Family (وجبات عائلية ومشاركة)
+                    { 
+                        id: 3, 
+                        category: 'family', 
+                        name: 'وجبة فاميلي باك للعائلة', 
+                        description: '(8) قطع دجاج مقرمش طازج بالخلطة الأصلية - (6) قطع خبز طازجة - سلطة كولسلو عائلية - صوص - كولا باردة عائلية - بطاطس عائلي مقرمش', 
+                        price: 130, 
+                        spicy: false, 
+                        image: 'https://images.unsplash.com/photo-1594221708779-94832f4320d1?q=80&w=600&auto=format&fit=crop' 
+                    },
+
+                    // Category: Individual (وجبات فردية وبوكسات)
+                    { 
+                        id: 1, 
+                        category: 'individual', 
+                        name: 'وجبة دجاج كنتاكي', 
+                        description: '(4) قطع دجاج مقرمش - بطاطس مقرمشة - صوص كنتاكي - كولسلو طازج - كولا باردة - (3) قطع خبز طازجة', 
+                        price: 70, 
+                        spicy: false, 
+                        image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=600&auto=format&fit=crop' 
+                    },
+                    { 
+                        id: 2, 
+                        category: 'individual', 
+                        name: 'بوكس ماستر (Box Master)', 
+                        description: 'أرز ريزو متبل - صوص خاص - كولسلو طازج - قطع دجاج مقرمشة مخلية - كولا باردة - (2) قطعة خبز باجيت فرنسي', 
+                        price: 75, 
+                        spicy: false, 
+                        image: 'https://images.unsplash.com/photo-1562967914-608f82629710?q=80&w=600&auto=format&fit=crop' 
+                    },
+                    { 
+                        id: 10, 
+                        category: 'individual', 
+                        name: 'طبق ريزو (Rizo Plate)', 
+                        description: 'أرز الريزو الخاص المتبل بقطع الدجاج المقرمشة وصوص الريزو اللذيذ + كولا باردة - صوص - كولسلو طازج', 
+                        price: 40, 
+                        spicy: false, 
+                        image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=600&auto=format&fit=crop' 
+                    },
+                    { 
+                        id: 11, 
+                        category: 'individual', 
+                        name: 'فرايز تشكن (Loaded Fries Chicken)', 
+                        description: 'بطاطس ذهبية مقرمشة مغطاة بقطع الدجاج المقرمشة ومغمورة بالجبنة الذائبة + صوص - كاتشب - كولا', 
+                        price: 40, 
+                        spicy: false, 
+                        image: 'https://images.unsplash.com/photo-1576107232684-1279f3908581?q=80&w=600&auto=format&fit=crop' 
+                    },
+
+                    // Category: Burgers & Wraps (السندوتشات واللفائف)
+                    { 
+                        id: 4, 
+                        category: 'burgers', 
+                        name: 'برجر زنجر (Zinger Burger)', 
+                        description: 'صدر دجاج زنجر المقرمش الحار مع الخس والمايونيز والجبنة في خبز البرجر الطازج + بطاطس - صوص - كولسلو - كولا', 
+                        price: 40, 
+                        spicy: true, 
+                        image: 'https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?q=80&w=600&auto=format&fit=crop' 
+                    },
+                    { 
+                        id: 5, 
+                        category: 'burgers', 
+                        name: 'تويستر سبايسي (Spicy Twister)', 
+                        description: 'راب التورتيلا الشهير بقطع الدجاج الحارة والخس والطماطم مع صوص المايونيز الحار + بطاطس - صوص - كولسلو - كولا', 
+                        price: 40, 
+                        spicy: true, 
+                        image: 'https://images.unsplash.com/photo-1626804475297-41609ea261eb?q=80&w=600&auto=format&fit=crop' 
+                    },
+                    { 
+                        id: 6, 
+                        category: 'burgers', 
+                        name: 'بوريتو راب (Burrito Wrap)', 
+                        description: 'راب البوريتو اللذيذ محشو بقطع الدجاج المقرمشة والصوصات الخاصة + بطاطس - صوص - كولسلو - كولا', 
+                        price: 40, 
+                        spicy: false, 
+                        image: 'https://images.unsplash.com/photo-1584031036380-3fb6f23c7166?q=80&w=600&auto=format&fit=crop' 
+                    },
+                    { 
+                        id: 7, 
+                        category: 'burgers', 
+                        name: 'جمبري فاير (Fire Shrimp)', 
+                        description: 'قطع الجمبري المقرمشة الحارة مع صوص الفاير الخاص في راب أو برجر + بطاطس - صوص - كولسلو - كولا', 
+                        price: 50, 
+                        spicy: true, 
+                        image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=600&auto=format&fit=crop' 
+                    },
+                    { 
+                        id: 8, 
+                        category: 'burgers', 
+                        name: 'بوب برجر (Bob Burger)', 
+                        description: 'برجر بوب اللذيذ بقطع الدجاج المقرمشة مع الجبنة الذائبة والصوص الخاص + بطاطس - صوص - كولسلو - كولا', 
+                        price: 50, 
+                        spicy: false, 
+                        image: 'https://images.unsplash.com/photo-1615444738573-04961d15440d?q=80&w=600&auto=format&fit=crop' 
+                    },
+
+                    // Category: Kids (وجبات الأطفال)
+                    { 
+                        id: 9, 
+                        category: 'kids', 
+                        name: 'كيدز برجر (Kids Burger)', 
+                        description: 'برجر الدجاج المقرمش اللذيذ للأطفال مع الجبنة + بطاطس - صوص - كولسلو - كولا', 
+                        price: 30, 
+                        spicy: false, 
+                        image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop' 
+                    }
+                ],
+
+                // Methods
+                handleScroll() {
+                    this.scrolled = window.scrollY > 40;
+                },
+
+                scrollToCategory(id) {
+                    this.searchQuery = ''; // Clear search queries on category change
+                    this.activeTab = 'menu'; // Navigate back to menu tab
+                    this.activeCategory = id;
+                    setTimeout(() => {
+                        const el = document.getElementById('menu-section');
+                        if (el) {
+                            window.scrollTo({
+                                top: el.offsetTop - 130, // Offset for sticky navbar
+                                behavior: 'smooth'
+                            });
+                        }
+                    }, 50);
+                },
+
+                getItemsByCategory(categoryId) {
+                    return this.menuItems.filter(item => item.category === categoryId);
+                },
+
+                get filteredItems() {
+                    if (this.searchQuery === '') return [];
+                    const q = this.searchQuery.toLowerCase();
+                    return this.menuItems.filter(item => 
+                        item.name.toLowerCase().includes(q) || 
+                        (item.description && item.description.toLowerCase().includes(q))
+                    );
+                },
+
+                // Detailed popup modal controls
+                openItemDetails(item) {
+                    this.itemDetailsModal.item = item;
+                    this.itemDetailsModal.notes = '';
+                    this.itemDetailsModal.visible = true;
+                },
+
+                closeItemDetails() {
+                    this.itemDetailsModal.visible = false;
+                    this.itemDetailsModal.item = null;
+                    this.itemDetailsModal.notes = '';
+                },
+
+                addItemFromModal() {
+                    if (this.itemDetailsModal.item) {
+                        const itemToAdd = {
+                            ...this.itemDetailsModal.item,
+                            notes: this.itemDetailsModal.notes.trim()
+                        };
+                        this.addToCart(itemToAdd);
+                        this.closeItemDetails();
+                    }
+                },
+
+                // Core cart mechanics
+                addToCart(item) {
+                    // Check if identical item (with same notes) exists in cart
+                    const existingIndex = this.cart.findIndex(cartItem => 
+                        cartItem.id === item.id && 
+                        (cartItem.notes || '') === (item.notes || '')
+                    );
+
+                    if (existingIndex > -1) {
+                        this.cart[existingIndex].qty += 1;
+                    } else {
+                        this.cart.push({
+                            ...item,
+                            qty: 1,
+                            notes: item.notes || ''
+                        });
+                    }
+                    this.showToast('تمت الإضافة للسلة', item.name);
+                },
+
+                updateCartQty(index, change) {
+                    if (index >= 0 && index < this.cart.length) {
+                        this.cart[index].qty += change;
+                        if (this.cart[index].qty <= 0) {
+                            this.removeFromCart(index);
+                        }
+                    }
+                },
+
+                removeFromCart(index) {
+                    if (index >= 0 && index < this.cart.length) {
+                        this.cart.splice(index, 1);
+                    }
+                },
+
+                get cartTotalItems() {
+                    return this.cart.reduce((total, item) => total + item.qty, 0);
+                },
+
+                get cartSubtotal() {
+                    return this.cart.reduce((sub, item) => sub + (item.price * item.qty), 0);
+                },
+
+                get cartTotal() {
+                    let total = this.cartSubtotal;
+                    if (this.orderForm.deliveryType === 'delivery') {
+                        total += this.deliveryFee;
+                    }
+                    return total;
+                },
+
+                formatCurrency(value) {
+                    return `${value} ₪`;
+                },
+
+                // Gaza Palestinian mobile validation (Starts with 059 or 056 and is 10 digits total)
+                validateGazaPhone(phone) {
+                    const cleanPhone = phone.replace(/[\s-]/g, '');
+                    return /^(059|056)\d{7}$/.test(cleanPhone);
+                },
+
+                showToast(title, message) {
+                    this.toast.title = title;
+                    this.toast.message = message;
+                    this.toast.visible = true;
+                    
+                    setTimeout(() => {
+                        this.toast.visible = false;
+                    }, 4000);
+                },
+
+                // Countdown timer details
+                startCountdown() {
+                    let totalSeconds = (12 * 3600) + (45 * 60); 
+
+                    setInterval(() => {
+                        if (totalSeconds > 0) {
+                            totalSeconds--;
+                            
+                            const h = Math.floor(totalSeconds / 3600);
+                            const m = Math.floor((totalSeconds % 3600) / 60);
+                            const s = totalSeconds % 60;
+
+                            this.countdown.hours = h.toString().padStart(2, '0');
+                            this.countdown.minutes = m.toString().padStart(2, '0');
+                            this.countdown.seconds = s.toString().padStart(2, '0');
+                        }
+                    }, 1000);
+                },
+
+                // Dynamic interactive spiderweb constellation lines & mouse parallax
+                initSpiderweb() {
+                    const svg = document.getElementById('spiderweb-svg');
+                    const centerEl = document.getElementById('center-card');
+                    const c1 = document.getElementById('card-1');
+                    const c2 = document.getElementById('card-2');
+                    const c3 = document.getElementById('card-3');
+                    const c4 = document.getElementById('card-4');
+                    const panel = document.getElementById('hero-interactive-panel');
+                    const wrapper = document.getElementById('constellation-wrapper');
+                    
+                    const lines = {
+                        c1: document.getElementById('line-c1'),
+                        c2: document.getElementById('line-c2'),
+                        c3: document.getElementById('line-c3'),
+                        c4: document.getElementById('line-c4'),
+                        l12: document.getElementById('line-1-2'),
+                        l23: document.getElementById('line-2-3'),
+                        l34: document.getElementById('line-3-4'),
+                        l41: document.getElementById('line-4-1')
+                    };
+
+                    let targetX = 0, targetY = 0;
+                    let currentX = 0, currentY = 0;
+
+                    if (panel && wrapper) {
+                        panel.addEventListener('mousemove', (e) => {
+                            const rect = panel.getBoundingClientRect();
+                            const x = e.clientX - rect.left - rect.width / 2;
+                            const y = e.clientY - rect.top - rect.height / 2;
+                            // Max dynamic sway offset: 25px for premium 3D feeling
+                            targetX = (x / (rect.width / 2)) * 25;
+                            targetY = (y / (rect.height / 2)) * 25;
+                        });
+
+                        panel.addEventListener('mouseleave', () => {
+                            targetX = 0;
+                            targetY = 0;
+                        });
+                    }
+
+                    const update = () => {
+                        // Smooth lerp physics
+                        currentX += (targetX - currentX) * 0.08;
+                        currentY += (targetY - currentY) * 0.08;
+                        
+                        if (wrapper) {
+                            wrapper.style.transform = `translate(${currentX}px, ${currentY}px)`;
+                        }
+
+                        if (!svg || !centerEl || !c1 || !c2 || !c3 || !c4) {
+                            requestAnimationFrame(update);
+                            return;
+                        }
+                        
+                        const rect = svg.getBoundingClientRect();
+                        if (rect.width === 0 || rect.height === 0) {
+                            requestAnimationFrame(update);
+                            return;
+                        }
+                        
+                        const getCenter = (el) => {
+                            const r = el.getBoundingClientRect();
+                            return {
+                                x: r.left + r.width / 2 - rect.left,
+                                y: r.top + r.height / 2 - rect.top
+                            };
+                        };
+                        
+                        const center = getCenter(centerEl);
+                        const p1 = getCenter(c1);
+                        const p2 = getCenter(c2);
+                        const p3 = getCenter(c3);
+                        const p4 = getCenter(c4);
+                        
+                        const setLineCoords = (line, pt1, pt2) => {
+                            if (line) {
+                                line.setAttribute('x1', pt1.x);
+                                line.setAttribute('y1', pt1.y);
+                                line.setAttribute('x2', pt2.x);
+                                line.setAttribute('y2', pt2.y);
+                            }
+                        };
+                        
+                        setLineCoords(lines.c1, center, p1);
+                        setLineCoords(lines.c2, center, p2);
+                        setLineCoords(lines.c3, center, p3);
+                        setLineCoords(lines.c4, center, p4);
+                        
+                        setLineCoords(lines.l12, p1, p2);
+                        setLineCoords(lines.l23, p2, p3);
+                        setLineCoords(lines.l34, p3, p4);
+                        setLineCoords(lines.l41, p4, p1);
+                        
+                        requestAnimationFrame(update);
+                    };
+                    
+                    requestAnimationFrame(update);
+                },
+
+                sendOrderToWhatsApp() {
+                    // Form validations
+                    if (!this.orderForm.name.trim() || this.orderForm.name.trim().length < 3) {
+                        alert('يرجى إدخال اسم صحيح وثلاثي على الأقل.');
+                        return;
+                    }
+
+                    if (!this.validateGazaPhone(this.orderForm.phone)) {
+                        alert('يرجى إدخال رقم جوال صحيح (يبدأ بـ 059 أو 056 ومكون من 10 أرقام).');
+                        return;
+                    }
+
+                    if (this.orderForm.deliveryType === 'delivery' && (!this.orderForm.address.trim() || this.orderForm.address.trim().length < 5)) {
+                        alert('يرجى إدخال العنوان التفصيلي للتوصيل بشكل واضح.');
+                        return;
+                    }
+
+                    // Generate a unique short order reference
+                    const orderRef = `KFC-${Math.floor(1000 + Math.random() * 9000)}`;
+                    const currentDate = new Date().toLocaleDateString('ar-EG', { year: 'numeric', month: '2-digit', day: '2-digit' });
+
+                    // Format cart items inside a clean, modern list style without any emojis
+                    const itemsText = this.cart.map(item => {
+                        const itemTotal = item.price * item.qty;
+                        let line = `- *${item.qty}x ${item.name}*\n  الحساب: ${itemTotal} ₪ ${item.qty > 1 ? `(${item.price} ₪ للقطعة)` : ''}`;
+                        if (item.notes) {
+                            line += `\n  ملاحظة: _${item.notes}_`;
+                        }
+                        return line;
+                    }).join('\n\n');
+
+                    // Assembly of the beautiful emoji-free official receipt
+                    const deliveryCostText = this.orderForm.deliveryType === 'delivery' ? `${this.deliveryFee} ₪` : 'استلام من الفرع';
+                    const fullAddressText = this.orderForm.deliveryType === 'delivery' ? this.orderForm.address.trim() : 'استلام من فرع شارع النصر (بجانب العائلات)';
+
+                    const messageParts = [
+                        `*فاتورة طلب - ${this.restaurantName}*`,
+                        `=========================`,
+                        `*رقم الفاتورة:* #${orderRef}`,
+                        `*التاريخ:* ${currentDate}`,
+                        `*العميل:* ${this.orderForm.name.trim()}`,
+                        `*الجوال:* ${this.orderForm.phone.trim()}`,
+                        `*نوع الطلب:* ${this.orderForm.deliveryType === 'delivery' ? 'توصيل للمنزل' : 'استلام من الفرع'}`,
+                        `*العنوان:* ${fullAddressText}`,
+                        `=========================`,
+                        `*تفاصيل المنتجات:*`,
+                        `-------------------------`,
+                        itemsText,
+                        `=========================`,
+                        `*الحساب الإجمالي:*`,
+                        `-------------------------`,
+                        `- المجموع الفرعي: ${this.cartSubtotal} ₪`,
+                        this.orderForm.deliveryType === 'delivery' ? `- رسوم التوصيل: ${this.deliveryFee} ₪` : `- التوصيل: استلام من الفرع`,
+                        `*المجموع النهائي: ${this.cartTotal} ₪*`,
+                        `=========================`,
+                        this.orderForm.notes.trim() ? `*ملاحظات عامة:*\n_${this.orderForm.notes.trim()}_\n=========================` : '',
+                        `*شكراً لطلبكم من ${this.restaurantName}!*`
+                    ];
+
+                    const textMessage = messageParts.filter(part => part !== '').join('\n');
+                    const encodedText = encodeURIComponent(textMessage);
+                    const whatsappUrl = `https://wa.me/${this.whatsappNumber}?text=${encodedText}`;
+
+                    // Redirect to WhatsApp web/app interface
+                    window.open(whatsappUrl, '_blank');
+                    
+                    // Increment orders and add actual event to logs
+                    this.adminLiveOrders += 1;
+                    const orderTime = new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', second: '2-digit' }).split(' ')[0];
+                    this.adminLiveActivityLog.unshift({
+                        time: orderTime,
+                        event: `تم تأكيد طلب جديد للعميل ${this.orderForm.name.trim()} بقيمة ${this.cartTotal} ₪`
+                    });
+                    if (this.adminLiveActivityLog.length > 8) {
+                        this.adminLiveActivityLog.pop();
+                    }
+
+                    // Reset cart and UI
+                    this.cart = [];
+                    this.openCart = false;
+                    this.checkoutStep = 1;
+                    this.orderForm = {
+                        name: '',
+                        phone: '',
+                        deliveryType: 'delivery',
+                        address: '',
+                        notes: ''
+                    };
+
+                    this.showToast('تم إرسال الطلب بنجاح', 'نشكرك على ثقتك بكنتاكي غزة، جاري تحويلك للواتساب.');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
