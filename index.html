@@ -19,6 +19,9 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
 
@@ -1239,7 +1242,7 @@
                                             <td class="py-4 px-6">
                                                 <div class="flex items-center gap-2.5">
                                                     <!-- Toggle switch -->
-                                                    <button @click="item.available = (item.available !== false ? false : true); saveMenu(); showToast('تم تحديث حالة التوفر', `${item.name}: ${item.available !== false ? 'متوفر' : 'غير متوفر'}`);"
+                                                    <button @click="toggleMenuItemAvailability(item)"
                                                             class="w-10 h-5.5 rounded-full p-0.5 transition-all outline-none"
                                                             :class="item.available !== false ? 'bg-adminSuccess' : 'bg-white/10'">
                                                         <div class="w-4.5 h-4.5 bg-white rounded-full shadow-md transition-transform"
@@ -1260,7 +1263,7 @@
                                                         class="bg-white/5 hover:bg-white/10 text-white border border-white/5 py-1.5 px-3 rounded-lg text-[10px] font-bold transition-all focus:outline-none">
                                                     <span>تعديل</span>
                                                 </button>
-                                                <button @click="if(confirm('هل أنت متأكد من حذف هذه الوجبة نهائياً؟')) { menuItems = menuItems.filter(i => i.id !== item.id); saveMenu(); showToast('تم حذف الوجبة', item.name); }"
+                                                <button @click="deleteMenuItem(item)"
                                                         class="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 py-1.5 px-3 rounded-lg text-[10px] font-bold transition-all focus:outline-none">
                                                     <span>حذف</span>
                                                 </button>
@@ -1376,7 +1379,7 @@
                 
                 <h3 class="font-heading font-black text-xl text-white mb-6">إضافة وجبة جديدة</h3>
                 
-                <form @submit.prevent="adminNewItem.id = Date.now(); menuItems.push(Object.assign({}, adminNewItem)); saveMenu(); adminShowAddModal = false; showToast('تمت إضافة وجبة جديدة', adminNewItem.name);" class="space-y-4">
+                <form @submit.prevent="addMenuItem()" class="space-y-4">
                     <div>
                         <label class="block text-xs font-bold text-gray-400 mb-1.5">اسم الوجبة</label>
                         <input type="text" x-model="adminNewItem.name" placeholder="مثال: زنجر بوكس" required
@@ -1439,7 +1442,7 @@
                 
                 <h3 class="font-heading font-black text-xl text-white mb-6">تعديل بيانات الوجبة</h3>
                 
-                <form @submit.prevent="const idx = menuItems.findIndex(i => i.id === adminEditingItem.id); if(idx > -1) { menuItems[idx] = Object.assign({}, adminEditingItem); saveMenu(); adminShowEditModal = false; showToast('تم تحديث الوجبة بنجاح', adminEditingItem.name); }" class="space-y-4">
+                <form @submit.prevent="updateMenuItem()" class="space-y-4">
                     <div>
                         <label class="block text-xs font-bold text-gray-400 mb-1.5">اسم الوجبة</label>
                         <input type="text" x-model="adminEditingItem.name" required
@@ -1531,7 +1534,7 @@
                             class="border border-white/10 hover:bg-white/5 text-gray-400 hover:text-white font-bold py-3 px-6 rounded-xl text-xs transition-all focus:outline-none">
                         <span>إلغاء الأمر</span>
                     </button>
-                    <button @click="if (adminCropImageSrc) { const canvas = document.getElementById('crop-canvas'); const croppedBase64 = canvas.toDataURL('image/png'); if (adminCropTargetItem) { const idx = menuItems.findIndex(i => i.id === adminCropTargetItem.id); if(idx > -1) { menuItems[idx].image = croppedBase64; saveMenu(); showToast('تم تحديث صورة الوجبة', adminCropTargetItem.name); } } else { alert('يرجى تحديد الوجبة لربط الصورة بها من تبويب القائمة'); } adminShowCropperModal = false; adminCropImageSrc = ''; } else { alert('يرجى اختيار ملف أولاً.'); }"
+                    <button @click="if (adminCropImageSrc) { const canvas = document.getElementById('crop-canvas'); saveCroppedImage(canvas.toDataURL('image/png')); } else { alert('يرجى اختيار ملف أولاً.'); }"
                             :disabled="!adminCropImageSrc"
                             class="bg-primary hover:bg-primaryDark text-white font-bold py-3 px-8 rounded-xl text-xs transition-all focus:outline-none flex items-center gap-1.5"
                             :class="!adminCropImageSrc ? 'opacity-50 cursor-not-allowed' : ''">
@@ -1870,6 +1873,20 @@
 
     <!-- Alpine App Logic -->
     <script>
+        // إعدادات اتصال Supabase - ضع روابط مشروعك هنا ليعمل الموقع بشكل حي ومباشر!
+        const SUPABASE_URL = 'https://uwyfztegbmgtfjylqfzc.supabase.co'; // ضع هنا رابط مشروعك (مثال: https://your-project.supabase.co)
+        const SUPABASE_ANON_KEY = 'sb_publishable_9bSYaH5xjThppmCbCceLAA_QFD7xsmk'; // ضع هنا مفتاح Anon Key الخاص بك
+
+        let supabaseClient = null;
+        try {
+            if (typeof supabase !== 'undefined' && SUPABASE_URL && SUPABASE_ANON_KEY) {
+                supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                console.log('Supabase client initialized successfully!');
+            }
+        } catch (e) {
+            console.error('Failed to initialize Supabase client:', e);
+        }
+
         function menuApp() {
             return {
                 scrolled: false,
@@ -1947,6 +1964,270 @@
                     localStorage.setItem('kfc_menu_items', JSON.stringify(this.menuItems));
                 },
 
+                // Get default hardcoded menu items as seed / fallback
+                getDefaultMenuItems() {
+                    return [
+                        { id: 3, category: 'family', name: 'وجبة فاميلي باك للعائلة', description: '(8) قطع دجاج مقرمش طازج بالخلطة الأصلية - (6) قطع خبز طازجة - سلطة كولسلو عائلية - صوص - كولا باردة عائلية - بطاطس عائلي مقرمش', price: 130, spicy: false, image: 'https://images.unsplash.com/photo-1594221708779-94832f4320d1?q=80&w=600&auto=format&fit=crop' },
+                        { id: 1, category: 'individual', name: 'وجبة دجاج كنتاكي', description: '(4) قطع دجاج مقرمش - بطاطس مقرمشة - صوص كنتاكي - كولسلو طازج - كولا باردة - (3) قطع خبز طازجة', price: 70, spicy: false, image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=600&auto=format&fit=crop' },
+                        { id: 2, category: 'individual', name: 'بوكس ماستر (Box Master)', description: 'أرز ريزو متبل - صوص خاص - كولسلو طازج - قطع دجاج مقرمشة مخلية - كولا باردة - (2) قطعة خبز باجيت فرنسي', price: 75, spicy: false, image: 'https://images.unsplash.com/photo-1562967914-608f82629710?q=80&w=600&auto=format&fit=crop' },
+                        { id: 10, category: 'individual', name: 'طبق ريزو (Rizo Plate)', description: 'أرز الريزو الخاص المتبل بقطع الدجاج المقرمشة وصوص الريزو اللذيذ + كولا باردة - صوص - كولسلو طازج', price: 40, spicy: false, image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=600&auto=format&fit=crop' },
+                        { id: 11, category: 'individual', name: 'فرايز تشكن (Loaded Fries Chicken)', description: 'بطاطس ذهبية مقرمشة مغطاة بقطع الدجاج المقرمشة ومغمورة بالجبنة الذائبة + صوص - كاتشب - كولا', price: 40, spicy: false, image: 'https://images.unsplash.com/photo-1576107232684-1279f3908581?q=80&w=600&auto=format&fit=crop' },
+                        { id: 4, category: 'burgers', name: 'برجر زنجر (Zinger Burger)', description: 'صدر دجاج زنجر المقرمش الحار مع الخس والمايونيز والجبنة في خبز البرجر الطازج + بطاطس - صوص - كولسلو - كولا', price: 40, spicy: true, image: 'https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?q=80&w=600&auto=format&fit=crop' },
+                        { id: 5, category: 'burgers', name: 'تويستر سبايسي (Spicy Twister)', description: 'راب التورتيلا الشهير بقطع الدجاج الحارة والخس والطماطم مع صوص المايونيز الحار + بطاطس - صوص - كولسلو - كولا', price: 40, spicy: true, image: 'https://images.unsplash.com/photo-1626804475297-41609ea261eb?q=80&w=600&auto=format&fit=crop' },
+                        { id: 6, category: 'burgers', name: 'بوريتو راب (Burrito Wrap)', description: 'راب البوريتو اللذيذ محشو بقطع الدجاج المقرمشة والصوصات الخاصة + بطاطس - صوص - كولسلو - كولا', price: 40, spicy: false, image: 'https://images.unsplash.com/photo-1584031036380-3fb6f23c7166?q=80&w=600&auto=format&fit=crop' },
+                        { id: 7, category: 'burgers', name: 'جمبري فاير (Fire Shrimp)', description: 'قطع الجمبري المقرمشة الحارة مع صوص الفاير الخاص في راب أو برجر + بطاطس - صوص - كولسلو - كولا', price: 50, spicy: true, image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=600&auto=format&fit=crop' },
+                        { id: 8, category: 'burgers', name: 'بوب برجر (Bob Burger)', description: 'برجر بوب اللذيذ بقطع الدجاج المقرمشة مع الجبنة الذائبة والصوص الخاص + بطاطس - صوص - كولسلو - كولا', price: 50, spicy: false, image: 'https://images.unsplash.com/photo-1615444738573-04961d15440d?q=80&w=600&auto=format&fit=crop' },
+                        { id: 9, category: 'kids', name: 'كيدز برجر (Kids Burger)', description: 'برجر الدجاج المقرمش اللذيذ للأطفال مع الجبنة + بطاطس - صوص - كولسلو - كولا', price: 30, spicy: false, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop' }
+                    ];
+                },
+
+                // Load Menu Items from Supabase (or fallback)
+                async loadMenuFromSupabase() {
+                    if (!supabaseClient) {
+                        this.menuItems = JSON.parse(localStorage.getItem('kfc_menu_items')) || this.getDefaultMenuItems();
+                        return;
+                    }
+
+                    try {
+                        const { data, error } = await supabaseClient
+                            .from('menu_items')
+                            .select('*')
+                            .order('id', { ascending: true });
+
+                        if (error) throw error;
+
+                        if (!data || data.length === 0) {
+                            console.log('Supabase menu_items table is empty. Seeding with default items...');
+                            const defaultItems = this.getDefaultMenuItems();
+                            
+                            // Seed items
+                            const { error: seedError } = await supabaseClient
+                                .from('menu_items')
+                                .insert(defaultItems.map(item => ({
+                                    category: item.category,
+                                    name: item.name,
+                                    description: item.description,
+                                    price: item.price,
+                                    spicy: item.spicy,
+                                    image: item.image,
+                                    available: true
+                                })));
+
+                            if (seedError) throw seedError;
+                            
+                            // Re-fetch
+                            await this.loadMenuFromSupabase();
+                        } else {
+                            this.menuItems = data;
+                        }
+                    } catch (e) {
+                        console.error('Error loading menu from Supabase:', e);
+                        this.menuItems = JSON.parse(localStorage.getItem('kfc_menu_items')) || this.getDefaultMenuItems();
+                    }
+                },
+
+                // Add menu item
+                async addMenuItem() {
+                    const newItem = {
+                        category: this.adminNewItem.category,
+                        name: this.adminNewItem.name,
+                        description: this.adminNewItem.description,
+                        price: this.adminNewItem.price,
+                        calories: this.adminNewItem.calories || '850',
+                        spicy: this.adminNewItem.spicy,
+                        image: this.adminNewItem.image || 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=600&auto=format&fit=crop',
+                        available: true
+                    };
+
+                    if (supabaseClient) {
+                        try {
+                            const { data, error } = await supabaseClient
+                                .from('menu_items')
+                                .insert([newItem])
+                                .select();
+
+                            if (error) throw error;
+                            
+                            if (data && data[0]) {
+                                this.menuItems.push(data[0]);
+                            }
+                        } catch (e) {
+                            console.error('Error inserting menu item to Supabase:', e);
+                            alert('حدث خطأ أثناء إضافة الوجبة لقاعدة البيانات');
+                            return;
+                        }
+                    } else {
+                        newItem.id = Date.now();
+                        this.menuItems.push(newItem);
+                    }
+                    
+                    this.saveMenu();
+                    this.adminShowAddModal = false;
+                    this.showToast('تمت إضافة وجبة جديدة', newItem.name);
+                    
+                    // Reset add form
+                    this.adminNewItem = {
+                        name: '',
+                        category: 'individual',
+                        description: '',
+                        price: 40,
+                        calories: '850',
+                        spicy: false,
+                        image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=600&auto=format&fit=crop',
+                        available: true
+                    };
+                },
+
+                // Update menu item
+                async updateMenuItem() {
+                    if (!this.adminEditingItem) return;
+
+                    const updatedFields = {
+                        category: this.adminEditingItem.category,
+                        name: this.adminEditingItem.name,
+                        description: this.adminEditingItem.description,
+                        price: this.adminEditingItem.price,
+                        calories: this.adminEditingItem.calories,
+                        spicy: this.adminEditingItem.spicy,
+                        image: this.adminEditingItem.image,
+                        available: this.adminEditingItem.available !== false
+                    };
+
+                    if (supabaseClient) {
+                        try {
+                            const { error } = await supabaseClient
+                                .from('menu_items')
+                                .update(updatedFields)
+                                .eq('id', this.adminEditingItem.id);
+
+                            if (error) throw error;
+                        } catch (e) {
+                            console.error('Error updating menu item in Supabase:', e);
+                            alert('حدث خطأ أثناء تعديل الوجبة');
+                            return;
+                        }
+                    }
+
+                    const idx = this.menuItems.findIndex(i => i.id === this.adminEditingItem.id);
+                    if (idx > -1) {
+                        this.menuItems[idx] = Object.assign({}, this.adminEditingItem);
+                    }
+                    this.saveMenu();
+                    this.adminShowEditModal = false;
+                    this.showToast('تم تحديث الوجبة بنجاح', this.adminEditingItem.name);
+                },
+
+                // Delete menu item
+                async deleteMenuItem(item) {
+                    if (confirm(`هل أنت متأكد من حذف وجبة "${item.name}" نهائياً؟`)) {
+                        if (supabaseClient) {
+                            try {
+                                const { error } = await supabaseClient
+                                    .from('menu_items')
+                                    .delete()
+                                    .eq('id', item.id);
+
+                                if (error) throw error;
+                            } catch (e) {
+                                console.error('Error deleting menu item in Supabase:', e);
+                                alert('حدث خطأ أثناء حذف الوجبة');
+                                return;
+                            }
+                        }
+                        
+                        this.menuItems = this.menuItems.filter(i => i.id !== item.id);
+                        this.saveMenu();
+                        this.showToast('تم حذف الوجبة', item.name);
+                    }
+                },
+
+                // Toggle menu item availability
+                async toggleMenuItemAvailability(item) {
+                    const newAvailable = item.available !== false ? false : true;
+
+                    if (supabaseClient) {
+                        try {
+                            const { error } = await supabaseClient
+                                .from('menu_items')
+                                .update({ available: newAvailable })
+                                .eq('id', item.id);
+
+                            if (error) throw error;
+                        } catch (e) {
+                            console.error('Error updating availability in Supabase:', e);
+                            alert('حدث خطأ أثناء تحديث حالة التوفر');
+                            return;
+                        }
+                    }
+
+                    item.available = newAvailable;
+                    this.saveMenu();
+                    this.showToast('تم تحديث حالة التوفر', `${item.name}: ${newAvailable ? 'متوفر' : 'غير متوفر'}`);
+                },
+
+                // Save cropped image
+                async saveCroppedImage(croppedBase64) {
+                    if (!this.adminCropTargetItem) {
+                        alert('يرجى تحديد الوجبة لربط الصورة بها.');
+                        return;
+                    }
+                    
+                    const idx = this.menuItems.findIndex(i => i.id === this.adminCropTargetItem.id);
+                    if (idx > -1) {
+                        if (supabaseClient) {
+                            try {
+                                const { error } = await supabaseClient
+                                    .from('menu_items')
+                                    .update({ image: croppedBase64 })
+                                    .eq('id', this.adminCropTargetItem.id);
+
+                                if (error) throw error;
+                            } catch (e) {
+                                console.error('Error updating image in Supabase:', e);
+                                alert('حدث خطأ أثناء حفظ الصورة في قاعدة البيانات');
+                                return;
+                            }
+                        }
+                        
+                        this.menuItems[idx].image = croppedBase64;
+                        this.saveMenu();
+                        this.showToast('تم تحديث صورة الوجبة', this.adminCropTargetItem.name);
+                    }
+                    
+                    this.adminShowCropperModal = false;
+                    this.adminCropImageSrc = '';
+                },
+
+                // Sound generator using Web Audio API for incoming orders
+                playOrderNotificationSound() {
+                    try {
+                        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                        const playTone = (freq, startTime, duration) => {
+                            const oscillator = audioCtx.createOscillator();
+                            const gainNode = audioCtx.createGain();
+                            
+                            oscillator.type = 'sine';
+                            oscillator.frequency.value = freq;
+                            
+                            gainNode.gain.setValueAtTime(0, startTime);
+                            gainNode.gain.linearRampToValueAtTime(0.4, startTime + 0.05);
+                            gainNode.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+                            
+                            oscillator.connect(gainNode);
+                            gainNode.connect(audioCtx.destination);
+                            
+                            oscillator.start(startTime);
+                            oscillator.stop(startTime + duration);
+                        };
+                        
+                        // Premium double chime
+                        playTone(523.25, audioCtx.currentTime, 0.3); // C5
+                        playTone(659.25, audioCtx.currentTime + 0.12, 0.4); // E5
+                    } catch (e) {
+                        console.error('Failed to play sound:', e);
+                    }
+                },
+
                 // Customer Order Form
                 orderForm: {
                     name: '',
@@ -1999,44 +2280,116 @@
                         this.initSpiderweb();
                     }, 150);
 
+                    // Load Menu Items from Supabase (or fallback to local)
+                    this.loadMenuFromSupabase();
+
                     // Real-time Dashboard Live Metrics Logic
-                    // 1. Visitors: initialized to baseline 45, fluctuates slightly for visual dynamic feedback.
-                    setInterval(() => {
-                        const change = Math.floor(Math.random() * 5) - 2;
-                        this.adminLiveVisitors = Math.min(Math.max(this.adminLiveVisitors + change, 35), 65);
-                    }, 4000);
-
-                    // 2. Active Carts: dynamically tracked based on current actual user session. 
-                    // Baseline is 3. If there is a cart item, we add it to the count.
-                    this.$watch('cart.length', value => {
-                        // Dynamically update active carts count when cart modifications occur.
-                        this.adminLiveCarts = Math.max(3, value > 0 ? 3 + 1 : 3);
-                    });
-
-                    // 3. Orders: Base is 18. Actual checkouts increment the counter and trigger a live activity log.
-                    // We hook into the sendOrderToWhatsApp method or cart checkout process.
-
-                    const simulatedLogEvents = [
-                        "عميل تصفح قسم السندوتشات واللفائف",
-                        "عميل من حي الرمال أضاف برجر زنجر للسلة",
-                        "تمت إضافة تويستر سبايسي للسلة من مستخدم في شارع الجلاء",
-                        "عميل يستعلم عن موقع الفرع في شارع النصر",
-                        "عميل تصفح قسم الوجبات الفردية",
-                        "مستخدم أضاف طبق ريزو للسلة مع ملاحظة خاصة",
-                        "عميل تصفح قسم وجبات عائلية ومشاركة",
-                        "مستخدم تصفح صفحة من نحن وقصة القرمشة"
-                    ];
-
-                    setInterval(() => {
-                        const now = new Date();
-                        const timeStr = now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', second: '2-digit' }).split(' ')[0];
-                        const randomEvent = simulatedLogEvents[Math.floor(Math.random() * simulatedLogEvents.length)];
+                    if (supabaseClient) {
+                        // 1. Setup Supabase Presence for Active Visitors and Carts
+                        const presenceChannel = supabaseClient.channel('kfc-presence', {
+                            config: { presence: { key: 'user-' + Math.floor(Math.random() * 10000) } }
+                        });
                         
-                        this.adminLiveActivityLog.unshift({ time: timeStr, event: randomEvent });
-                        if (this.adminLiveActivityLog.length > 8) {
-                            this.adminLiveActivityLog.pop();
-                        }
-                    }, 12000);
+                        presenceChannel
+                            .on('presence', { event: 'sync' }, () => {
+                                const state = presenceChannel.presenceState();
+                                const totalUsers = Object.keys(state).length;
+                                this.adminLiveVisitors = Math.max(1, totalUsers); // Ensure at least 1 visitor
+                                
+                                let activeCarts = 0;
+                                for (const key in state) {
+                                    const presenceInfos = state[key];
+                                    if (presenceInfos && presenceInfos[0] && presenceInfos[0].hasCart) {
+                                        activeCarts++;
+                                    }
+                                }
+                                this.adminLiveCarts = activeCarts;
+                            })
+                            .subscribe(async (status) => {
+                                if (status === 'SUBSCRIBED') {
+                                    await presenceChannel.track({
+                                        hasCart: this.cart.length > 0,
+                                        onlineAt: new Date().toISOString()
+                                    });
+                                }
+                            });
+                            
+                        this.presenceChannel = presenceChannel;
+
+                        this.$watch('cart.length', async (value) => {
+                            if (this.presenceChannel) {
+                                await this.presenceChannel.track({
+                                    hasCart: value > 0,
+                                    onlineAt: new Date().toISOString()
+                                });
+                            }
+                        });
+
+                        // 2. Fetch Initial Orders Count and Subscribe to Real-time Orders (INSERT)
+                        supabaseClient
+                            .from('orders')
+                            .select('*', { count: 'exact', head: true })
+                            .then(({ count, error }) => {
+                                if (!error && count !== null) {
+                                    this.adminLiveOrders = count;
+                                }
+                            });
+
+                        supabaseClient
+                            .channel('kfc-orders')
+                            .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'orders' }, (payload) => {
+                                const newOrder = payload.new;
+                                this.adminLiveOrders++;
+                                
+                                const now = new Date(newOrder.created_at || new Date());
+                                const timeStr = now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', second: '2-digit' }).split(' ')[0];
+                                
+                                this.adminLiveActivityLog.unshift({
+                                    time: timeStr,
+                                    event: `تم استقبال طلب جديد للعميل ${newOrder.customer_name} بقيمة ${newOrder.total} ₪`
+                                });
+                                if (this.adminLiveActivityLog.length > 8) {
+                                    this.adminLiveActivityLog.pop();
+                                }
+
+                                this.playOrderNotificationSound();
+                                this.showToast('طلب جديد في لوحة التحكم!', `طلب من ${newOrder.customer_name} بقيمة ${newOrder.total} ₪`);
+                            })
+                            .subscribe();
+
+                    } else {
+                        // Fallback Simulated Data (Default behaviour if Supabase not configured)
+                        setInterval(() => {
+                            const change = Math.floor(Math.random() * 5) - 2;
+                            this.adminLiveVisitors = Math.min(Math.max(this.adminLiveVisitors + change, 35), 65);
+                        }, 4000);
+
+                        this.$watch('cart.length', value => {
+                            this.adminLiveCarts = Math.max(3, value > 0 ? 3 + 1 : 3);
+                        });
+
+                        const simulatedLogEvents = [
+                            "عميل تصفح قسم السندوتشات واللفائف",
+                            "عميل من حي الرمال أضاف برجر زنجر للسلة",
+                            "تمت إضافة تويستر سبايسي للسلة من مستخدم في شارع الجلاء",
+                            "عميل يستعلم عن موقع الفرع في شارع النصر",
+                            "عميل تصفح قسم الوجبات الفردية",
+                            "مستخدم أضاف طبق ريزو للسلة مع ملاحظة خاصة",
+                            "عميل تصفح قسم وجبات عائلية ومشاركة",
+                            "مستخدم تصفح صفحة من نحن وقصة القرمشة"
+                        ];
+
+                        setInterval(() => {
+                            const now = new Date();
+                            const timeStr = now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', second: '2-digit' }).split(' ')[0];
+                            const randomEvent = simulatedLogEvents[Math.floor(Math.random() * simulatedLogEvents.length)];
+                            
+                            this.adminLiveActivityLog.unshift({ time: timeStr, event: randomEvent });
+                            if (this.adminLiveActivityLog.length > 8) {
+                                this.adminLiveActivityLog.pop();
+                            }
+                        }, 12000);
+                    }
                 },
 
                 // KFC Categories matching the exact uploaded items
@@ -2048,115 +2401,8 @@
                     { id: 'kids', name: 'وجبات الأطفال (Kids Meals)' }
                 ],
 
-                // KFC Menu items representing the exact items uploaded in the images (Loaded from localStorage if exists)
-                menuItems: JSON.parse(localStorage.getItem('kfc_menu_items')) || [
-                    // Category: Family (وجبات عائلية ومشاركة)
-                    { 
-                        id: 3, 
-                        category: 'family', 
-                        name: 'وجبة فاميلي باك للعائلة', 
-                        description: '(8) قطع دجاج مقرمش طازج بالخلطة الأصلية - (6) قطع خبز طازجة - سلطة كولسلو عائلية - صوص - كولا باردة عائلية - بطاطس عائلي مقرمش', 
-                        price: 130, 
-                        spicy: false, 
-                        image: 'https://images.unsplash.com/photo-1594221708779-94832f4320d1?q=80&w=600&auto=format&fit=crop' 
-                    },
-
-                    // Category: Individual (وجبات فردية وبوكسات)
-                    { 
-                        id: 1, 
-                        category: 'individual', 
-                        name: 'وجبة دجاج كنتاكي', 
-                        description: '(4) قطع دجاج مقرمش - بطاطس مقرمشة - صوص كنتاكي - كولسلو طازج - كولا باردة - (3) قطع خبز طازجة', 
-                        price: 70, 
-                        spicy: false, 
-                        image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=600&auto=format&fit=crop' 
-                    },
-                    { 
-                        id: 2, 
-                        category: 'individual', 
-                        name: 'بوكس ماستر (Box Master)', 
-                        description: 'أرز ريزو متبل - صوص خاص - كولسلو طازج - قطع دجاج مقرمشة مخلية - كولا باردة - (2) قطعة خبز باجيت فرنسي', 
-                        price: 75, 
-                        spicy: false, 
-                        image: 'https://images.unsplash.com/photo-1562967914-608f82629710?q=80&w=600&auto=format&fit=crop' 
-                    },
-                    { 
-                        id: 10, 
-                        category: 'individual', 
-                        name: 'طبق ريزو (Rizo Plate)', 
-                        description: 'أرز الريزو الخاص المتبل بقطع الدجاج المقرمشة وصوص الريزو اللذيذ + كولا باردة - صوص - كولسلو طازج', 
-                        price: 40, 
-                        spicy: false, 
-                        image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=600&auto=format&fit=crop' 
-                    },
-                    { 
-                        id: 11, 
-                        category: 'individual', 
-                        name: 'فرايز تشكن (Loaded Fries Chicken)', 
-                        description: 'بطاطس ذهبية مقرمشة مغطاة بقطع الدجاج المقرمشة ومغمورة بالجبنة الذائبة + صوص - كاتشب - كولا', 
-                        price: 40, 
-                        spicy: false, 
-                        image: 'https://images.unsplash.com/photo-1576107232684-1279f3908581?q=80&w=600&auto=format&fit=crop' 
-                    },
-
-                    // Category: Burgers & Wraps (السندوتشات واللفائف)
-                    { 
-                        id: 4, 
-                        category: 'burgers', 
-                        name: 'برجر زنجر (Zinger Burger)', 
-                        description: 'صدر دجاج زنجر المقرمش الحار مع الخس والمايونيز والجبنة في خبز البرجر الطازج + بطاطس - صوص - كولسلو - كولا', 
-                        price: 40, 
-                        spicy: true, 
-                        image: 'https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?q=80&w=600&auto=format&fit=crop' 
-                    },
-                    { 
-                        id: 5, 
-                        category: 'burgers', 
-                        name: 'تويستر سبايسي (Spicy Twister)', 
-                        description: 'راب التورتيلا الشهير بقطع الدجاج الحارة والخس والطماطم مع صوص المايونيز الحار + بطاطس - صوص - كولسلو - كولا', 
-                        price: 40, 
-                        spicy: true, 
-                        image: 'https://images.unsplash.com/photo-1626804475297-41609ea261eb?q=80&w=600&auto=format&fit=crop' 
-                    },
-                    { 
-                        id: 6, 
-                        category: 'burgers', 
-                        name: 'بوريتو راب (Burrito Wrap)', 
-                        description: 'راب البوريتو اللذيذ محشو بقطع الدجاج المقرمشة والصوصات الخاصة + بطاطس - صوص - كولسلو - كولا', 
-                        price: 40, 
-                        spicy: false, 
-                        image: 'https://images.unsplash.com/photo-1584031036380-3fb6f23c7166?q=80&w=600&auto=format&fit=crop' 
-                    },
-                    { 
-                        id: 7, 
-                        category: 'burgers', 
-                        name: 'جمبري فاير (Fire Shrimp)', 
-                        description: 'قطع الجمبري المقرمشة الحارة مع صوص الفاير الخاص في راب أو برجر + بطاطس - صوص - كولسلو - كولا', 
-                        price: 50, 
-                        spicy: true, 
-                        image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=600&auto=format&fit=crop' 
-                    },
-                    { 
-                        id: 8, 
-                        category: 'burgers', 
-                        name: 'بوب برجر (Bob Burger)', 
-                        description: 'برجر بوب اللذيذ بقطع الدجاج المقرمشة مع الجبنة الذائبة والصوص الخاص + بطاطس - صوص - كولسلو - كولا', 
-                        price: 50, 
-                        spicy: false, 
-                        image: 'https://images.unsplash.com/photo-1615444738573-04961d15440d?q=80&w=600&auto=format&fit=crop' 
-                    },
-
-                    // Category: Kids (وجبات الأطفال)
-                    { 
-                        id: 9, 
-                        category: 'kids', 
-                        name: 'كيدز برجر (Kids Burger)', 
-                        description: 'برجر الدجاج المقرمش اللذيذ للأطفال مع الجبنة + بطاطس - صوص - كولسلو - كولا', 
-                        price: 30, 
-                        spicy: false, 
-                        image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop' 
-                    }
-                ],
+                // KFC Menu items (loaded dynamically from Supabase/localStorage)
+                menuItems: [],
 
                 // Methods
                 handleScroll() {
@@ -2468,18 +2714,55 @@
                     const encodedText = encodeURIComponent(textMessage);
                     const whatsappUrl = `https://wa.me/${this.whatsappNumber}?text=${encodedText}`;
 
+                    // Prepare order for database insertion
+                    const orderData = {
+                        order_ref: orderRef,
+                        customer_name: this.orderForm.name.trim(),
+                        customer_phone: this.orderForm.phone.trim(),
+                        delivery_type: this.orderForm.deliveryType,
+                        address: this.orderForm.deliveryType === 'delivery' ? this.orderForm.address.trim() : 'استلام من الفرع',
+                        notes: this.orderForm.notes.trim(),
+                        items: this.cart.map(item => ({
+                            id: item.id,
+                            name: item.name,
+                            price: item.price,
+                            qty: item.qty,
+                            notes: item.notes || ''
+                        })),
+                        subtotal: this.cartSubtotal,
+                        delivery_fee: this.orderForm.deliveryType === 'delivery' ? this.deliveryFee : 0,
+                        total: this.cartTotal,
+                        status: 'pending'
+                    };
+
+                    // Save to Supabase (non-blocking)
+                    if (supabaseClient) {
+                        supabaseClient
+                            .from('orders')
+                            .insert([orderData])
+                            .then(({ error }) => {
+                                if (error) {
+                                    console.error('Error saving order to Supabase:', error);
+                                } else {
+                                    console.log('Order successfully saved to Supabase');
+                                }
+                            });
+                    }
+
                     // Redirect to WhatsApp web/app interface
                     window.open(whatsappUrl, '_blank');
                     
-                    // Increment orders and add actual event to logs
-                    this.adminLiveOrders += 1;
-                    const orderTime = new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', second: '2-digit' }).split(' ')[0];
-                    this.adminLiveActivityLog.unshift({
-                        time: orderTime,
-                        event: `تم تأكيد طلب جديد للعميل ${this.orderForm.name.trim()} بقيمة ${this.cartTotal} ₪`
-                    });
-                    if (this.adminLiveActivityLog.length > 8) {
-                        this.adminLiveActivityLog.pop();
+                    // Update local state if not connected to Supabase (Real-time subscription handles this if connected)
+                    if (!supabaseClient) {
+                        this.adminLiveOrders += 1;
+                        const orderTime = new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', second: '2-digit' }).split(' ')[0];
+                        this.adminLiveActivityLog.unshift({
+                            time: orderTime,
+                            event: `تم تأكيد طلب جديد للعميل ${this.orderForm.name.trim()} بقيمة ${this.cartTotal} ₪`
+                        });
+                        if (this.adminLiveActivityLog.length > 8) {
+                            this.adminLiveActivityLog.pop();
+                        }
                     }
 
                     // Reset cart and UI
