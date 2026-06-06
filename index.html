@@ -1875,7 +1875,7 @@
     <script>
         // إعدادات اتصال Supabase - ضع روابط مشروعك هنا ليعمل الموقع بشكل حي ومباشر!
         const SUPABASE_URL = 'https://uwyfztegbmgtfjylqfzc.supabase.co'; // ضع هنا رابط مشروعك (مثال: https://your-project.supabase.co)
-        const SUPABASE_ANON_KEY = 'sb_publishable_9bSYaH5xjThppmCbCceLAA_QFD7xsmk'; // ضع هنا مفتاح Anon Key الخاص بك
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eWZ6dGVnYm1ndGZqeWxxZnpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA3Mzg4NDMsImV4cCI6MjA5NjMxNDg0M30.FylkJQLQ2anGHb8jU-eeXCl-5B_WLgSTzr3pEDoCE-w'; // ضع هنا مفتاح Anon Key الخاص بك
 
         let supabaseClient = null;
         try {
@@ -1885,6 +1885,19 @@
             }
         } catch (e) {
             console.error('Failed to initialize Supabase client:', e);
+        }
+
+        // دالة مساعدة لتحويل الـ Base64 إلى Blob صالح للرفع للمستودع
+        function dataURLtoBlob(dataurl) {
+            const arr = dataurl.split(',');
+            const mime = arr[0].match(/:(.*?);/)[1];
+            const bstr = atob(arr[1]);
+            let n = bstr.length;
+            const u8arr = new Uint8Array(n);
+            while (n--) {
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            return new Blob([u8arr], { type: mime });
         }
 
         function menuApp() {
@@ -2174,22 +2187,50 @@
                     
                     const idx = this.menuItems.findIndex(i => i.id === this.adminCropTargetItem.id);
                     if (idx > -1) {
+                        let finalImageUrl = croppedBase64;
+
                         if (supabaseClient) {
                             try {
-                                const { error } = await supabaseClient
+                                // 1. تحويل الصورة المقتصة من Base64 إلى ملف Blob للرفع للسيرفر
+                                const blob = dataURLtoBlob(croppedBase64);
+                                const fileExtension = blob.type.split('/')[1] || 'png';
+                                const fileName = `menu-${this.adminCropTargetItem.id}-${Date.now()}.${fileExtension}`;
+
+                                // 2. رفع الملف إلى Supabase Storage Bucket باسم 'menu-images'
+                                const { data: uploadData, error: uploadError } = await supabaseClient
+                                    .storage
+                                    .from('menu-images')
+                                    .upload(fileName, blob, {
+                                        cacheControl: '3600',
+                                        upsert: true,
+                                        contentType: blob.type
+                                    });
+
+                                if (uploadError) throw uploadError;
+
+                                // 3. الحصول على الرابط العام المباشر للملف المرفوع
+                                const { data: publicUrlData } = supabaseClient
+                                    .storage
+                                    .from('menu-images')
+                                    .getPublicUrl(fileName);
+
+                                finalImageUrl = publicUrlData.publicUrl;
+
+                                // 4. تحديث رابط الصورة الجديد في قاعدة البيانات
+                                const { error: dbError } = await supabaseClient
                                     .from('menu_items')
-                                    .update({ image: croppedBase64 })
+                                    .update({ image: finalImageUrl })
                                     .eq('id', this.adminCropTargetItem.id);
 
-                                if (error) throw error;
+                                if (dbError) throw dbError;
                             } catch (e) {
                                 console.error('Error updating image in Supabase:', e);
-                                alert('حدث خطأ أثناء حفظ الصورة في قاعدة البيانات');
+                                alert('حدث خطأ أثناء رفع الصورة أو حفظها بالسيرفر. تأكد من تهيئة حاوية Storage Bucket باسم menu-images في Supabase.');
                                 return;
                             }
                         }
                         
-                        this.menuItems[idx].image = croppedBase64;
+                        this.menuItems[idx].image = finalImageUrl;
                         this.saveMenu();
                         this.showToast('تم تحديث صورة الوجبة', this.adminCropTargetItem.name);
                     }
